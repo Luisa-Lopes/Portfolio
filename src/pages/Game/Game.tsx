@@ -5,11 +5,15 @@ import Entities from "./entities";
 import { useKeyboard } from "./hooks/useKeyboard";
 import { createMovement } from "./Physics/Movement";
 import { createGameRules } from "./Physics/gameRules";
-import backGround from "../../assets/game/background.png";
+import Start from "./Components/Start";
 
 const Game = () => {
   const keyboard = useKeyboard();
-  const [gameOver, setGameOver] = useState(false);
+
+  const [gameState, setGameState] = useState<"start" | "playing" | "gameOver">(
+    "start",
+  );
+
   const [round, setRound] = useState(0);
   const gameEngineRef = useRef<GameEngine | null>(null);
 
@@ -24,57 +28,62 @@ const Game = () => {
   const entities = useMemo(() => Entities(), [round]);
   const movement = useMemo(() => createMovement(keyboard), [keyboard]);
   const gameRules = useMemo(
-    () => createGameRules(() => setGameOver(true)),
+    () => createGameRules(() => setGameState("gameOver")),
     [round],
   );
 
+  const handleStartGame = () => {
+    setGameState("playing");
+  };
+
   const restartGame = () => {
-    setGameOver(false);
+    setGameState("playing");
     setRound((currentRound) => currentRound + 1);
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        overflow: "hidden",
-        position: "relative",
-        backgroundImage: `url(${backGround})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <GameEngine
-        key={round}
-        ref={gameEngineRef}
-        running={!gameOver}
-        entities={entities}
-        style={{ width: "100%", minHeight: "100vh" }}
-        systems={[movement, Physics, gameRules]}
-      />
+    <section className="flex justify-center items-center h-screen w-screen">
+      <div
+        className="flex justify-center items-center h-full"
+        style={{
+          width: 800,
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        <GameEngine
+          key={round}
+          ref={gameEngineRef}
+          running={gameState === "playing"}
+          entities={entities}
+          style={{ width: "100%", minHeight: "100vh" }}
+          systems={[movement, Physics, gameRules]}
+        />
 
-      {gameOver && (
-        <div
-          style={{
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.72)",
-            color: "white",
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-            inset: 0,
-            justifyContent: "center",
-            position: "absolute",
-          }}
-        >
-          <h1 style={{ margin: 0 }}>Game over</h1>
-          <button onClick={restartGame} type="button">
-            Jogar novamente
-          </button>
-        </div>
-      )}
-    </div>
+        {gameState === "start" && <Start onClickStart={handleStartGame} />}
+
+        {gameState === "gameOver" && (
+          <div
+            style={{
+              alignItems: "center",
+              backgroundColor: "rgba(0, 0, 0, 0.72)",
+              color: "white",
+              display: "flex",
+              flexDirection: "column",
+              gap: 16,
+              inset: 0,
+              justifyContent: "center",
+              position: "absolute",
+            }}
+          >
+            <h1 style={{ margin: 0 }}>Game over</h1>
+            <button onClick={restartGame} type="button">
+              Jogar novamente
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 

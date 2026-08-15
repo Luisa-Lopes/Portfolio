@@ -2,9 +2,11 @@ import Matter from "matter-js";
 import Player from "./Player";
 import Floor from "./Floor";
 import Platform from "./Platform";
+import Camera from "./Camera";
+import Background from "./Background";
 
 const Entities = () => {
-  const windowWidth = window.innerWidth;
+  const windowWidth = 800;
   const windowHeight = window.innerHeight;
   const engine = Matter.Engine.create({ enableSleeping: false });
   const world = engine.world;
@@ -56,6 +58,53 @@ const Entities = () => {
       position: { x: windowWidth * 0.48, y: windowHeight - 425 },
       size: { height: 30, width: 140 },
       label: "platform3",
+    }),
+    camera: Camera({
+      position: { x: windowWidth / 2, y: windowHeight / 2 },
+      size: { height: windowHeight, width: windowWidth },
+    }),
+
+    backgroundFront: Background({
+      position: {
+        x: windowWidth / 2,
+        y: windowHeight / 2,
+      },
+      size: {
+        width: windowWidth,
+        height: windowHeight,
+      },
+      label: "background-front",
+      image: "FrontEnd",
+      parallax: 0.3,
+      zIndex: 0,
+    }),
+    backgroundFrontBack: Background({
+      position: {
+        x: windowWidth / 2,
+        y: -windowHeight / 2,
+      },
+      size: {
+        width: windowWidth,
+        height: windowHeight,
+      },
+      label: "background-frontBack",
+      image: "FrontBack",
+      parallax: 0.3,
+      zIndex: 0,
+    }),
+    backgroundBack: Background({
+      position: {
+        x: windowWidth / 2,
+        y: (-windowHeight * 3) / 2,
+      },
+      size: {
+        width: windowWidth,
+        height: windowHeight,
+      },
+      label: "background-back",
+      image: "BackEnd",
+      parallax: 0.3,
+      zIndex: 0,
     }),
   };
 };

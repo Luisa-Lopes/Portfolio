@@ -29,6 +29,7 @@ export const createMovement = (keyboard: KeyboardState) => {
     const player = entities.player;
     const speed = 1.5;
     const jumpVelocity = -11;
+    const movementSmoothing = 0.2;
     const platforms = Object.entries(entities)
       .filter(([key]) => key.startsWith("platform"))
       .map(([, entity]) => (entity as { body: Matter.Body }).body);
@@ -44,6 +45,10 @@ export const createMovement = (keyboard: KeyboardState) => {
       velocityX = speed;
       player.direction = "right";
     }
+
+    const horizontalVelocity =
+      player.body.velocity.x +
+      (velocityX - player.body.velocity.x) * movementSmoothing;
 
     const jumpPressed = Boolean(keyboard.current["KeyW"]);
     const hasPlatformCollision = entities.physics.engine.pairs.list.some(
@@ -61,8 +66,7 @@ export const createMovement = (keyboard: KeyboardState) => {
       const overlapsHorizontally =
         player.body.bounds.max.x > platform.bounds.min.x &&
         player.body.bounds.min.x < platform.bounds.max.x;
-      const distanceFromTop =
-        player.body.bounds.max.y - platform.bounds.min.y;
+      const distanceFromTop = player.body.bounds.max.y - platform.bounds.min.y;
 
       return (
         overlapsHorizontally &&
@@ -77,11 +81,16 @@ export const createMovement = (keyboard: KeyboardState) => {
       ? 120
       : Math.max(0, groundedGracePeriod - time.delta);
 
-    if (jumpPressed && !jumpWasPressed && isOnPlatform) {
-      Matter.Body.setVelocity(player.body, { x: velocityX, y: jumpVelocity });
+    const startedJump = jumpPressed && !jumpWasPressed && isOnPlatform;
+
+    if (startedJump) {
+      Matter.Body.setVelocity(player.body, {
+        x: horizontalVelocity,
+        y: jumpVelocity,
+      });
     } else {
       Matter.Body.setVelocity(player.body, {
-        x: velocityX,
+        x: horizontalVelocity,
         y: player.body.velocity.y,
       });
     }
@@ -90,23 +99,37 @@ export const createMovement = (keyboard: KeyboardState) => {
       player.body.velocity.y < -0.2 ||
       player.body.velocity.y > 0.75 ||
       (!isOnPlatform && groundedGracePeriod === 0);
-    const nextState = isAirborne
-      ? "jumping"
-      : velocityX !== 0
-        ? "walking"
-        : "idle";
-    const frameCount = nextState === "walking" ? 8 : nextState === "jumping" ? 4 : 1;
-
-    if (player.state !== nextState) {
-      player.state = nextState;
+    if (startedJump) {
+      player.state = "jumping";
       player.frame = 0;
       animationElapsed = 0;
-    } else if (nextState !== "idle") {
-      animationElapsed += time.delta;
-      if (animationElapsed >= 100) {
-        player.frame = (player.frame + 1) % frameCount;
+    } else if (isAirborne) {
+      player.state = "jumping";
+      animationElapsed = 0;
+
+      if (player.body.velocity.y < -6) {
+        player.frame = 1;
+      } else if (player.body.velocity.y < 0) {
+        player.frame = 2;
+      } else {
+        player.frame = 3;
+      }
+    } else if (Math.abs(horizontalVelocity) > 0.05) {
+      if (player.state !== "walking") {
+        player.state = "walking";
+        player.frame = 0;
         animationElapsed = 0;
       }
+
+      animationElapsed += time.delta;
+      if (animationElapsed >= 100) {
+        player.frame = (player.frame + 1) % 8;
+        animationElapsed = 0;
+      }
+    } else {
+      player.state = "idle";
+      player.frame = 0;
+      animationElapsed = 0;
     }
 
     platforms.forEach((platform) => {

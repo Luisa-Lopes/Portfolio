@@ -42,6 +42,7 @@ const Floor = (props: FloorProps) => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% auto",
         overflow: "hidden",
+        zIndex: 2,
       }}
     />
   );

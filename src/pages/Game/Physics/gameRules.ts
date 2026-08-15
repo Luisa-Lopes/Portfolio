@@ -5,12 +5,17 @@ interface BodyEntity {
   body: Matter.Body;
 }
 
+interface BackgroundEntity extends BodyEntity {
+  parallax: number;
+}
+
 interface GameEntities {
   floor: BodyEntity;
   physics: { engine: Matter.Engine; world: Matter.World };
   player: BodyEntity;
   viewport: { height: number; width: number };
   [key: string]: unknown;
+  camera: BodyEntity;
 }
 
 const platformSize = { height: 30, width: 140 };
@@ -24,10 +29,13 @@ export const createGameRules = (onGameOver: () => void) => {
   return (entities: GameEntities) => {
     if (isGameOver) return entities;
 
-    const { player, floor, viewport } = entities;
+    const { player, floor, viewport, camera } = entities;
     const platforms = Object.entries(entities)
       .filter(([key]) => key.startsWith("platform"))
       .map(([key, entity]) => [key, entity as BodyEntity] as const);
+    const backgrounds = Object.entries(entities)
+      .filter(([key]) => key.startsWith("background"))
+      .map(([, entity]) => entity as BackgroundEntity);
 
     const playerHalfWidth =
       (player.body.bounds.max.x - player.body.bounds.min.x) / 2;
@@ -57,8 +65,16 @@ export const createGameRules = (onGameOver: () => void) => {
     const cameraLine = viewport.height * 0.35;
     if (player.body.position.y < cameraLine) {
       const offset = cameraLine - player.body.position.y;
+
       Matter.Body.translate(player.body, { x: 0, y: offset });
+      Matter.Body.translate(camera.body, { x: 0, y: offset });
       Matter.Body.translate(floor.body, { x: 0, y: offset });
+      backgrounds.forEach((background) => {
+        Matter.Body.translate(background.body, {
+          x: 0,
+          y: offset * background.parallax,
+        });
+      });
       platforms.forEach(([, platform]) => {
         Matter.Body.translate(platform.body, { x: 0, y: offset });
       });

@@ -33,7 +33,7 @@ const Platform = ({ body }: PlatformProps) => {
         backgroundSize: "100% auto",
         imageRendering: "pixelated",
         overflow: "hidden",
-        backgroundColor: "",
+        zIndex: 2,
       }}
     />
   );
