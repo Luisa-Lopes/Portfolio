@@ -34,7 +34,16 @@ export const createGameRules = (onGameOver: () => void) => {
       .filter(([key]) => key.startsWith("platform"))
       .map(([key, entity]) => [key, entity as BodyEntity] as const);
     const backgrounds = Object.entries(entities)
-      .filter(([key]) => key.startsWith("background"))
+      .filter(
+        ([key]) =>
+          key.startsWith("background") ||
+          key.startsWith("monitor") ||
+          key.startsWith("cloud") ||
+          key.startsWith("html") ||
+          key.startsWith("css") ||
+          key.startsWith("mural") ||
+          key.startsWith("server"),
+      )
       .map(([, entity]) => entity as BackgroundEntity);
 
     const playerHalfWidth =

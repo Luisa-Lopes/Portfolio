@@ -93,7 +93,7 @@ const Player = ({ body, state, direction, frame }: PlayerProps) => {
         backgroundPosition,
         imageRendering: "pixelated",
         pointerEvents: "none",
-        zIndex: 2,
+        zIndex: 120,
       }}
     />
   );

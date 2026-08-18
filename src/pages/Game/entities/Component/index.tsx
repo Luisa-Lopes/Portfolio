@@ -1,22 +1,21 @@
-/* eslint-disable react-refresh/only-export-components */
-
 import Matter from "matter-js";
-import BackgroundImage from "../../../../assets/game/background/background.png";
 
-interface BackgroundProps {
+interface ComponentProps {
   body: Matter.Body;
   zIndex: number;
+  image: string;
 }
 
-interface CreateBackgroundProps {
+interface CreateComponentProps {
   label: string;
   parallax: number;
   position: { x: number; y: number };
   size: { width: number; height: number };
   zIndex: number;
+  image: string;
 }
 
-const Background = ({ body, zIndex }: BackgroundProps) => {
+const Component = ({ body, zIndex, image }: ComponentProps) => {
   const width = body.bounds.max.x - body.bounds.min.x;
   const height = body.bounds.max.y - body.bounds.min.y;
   const positionY = body.position.y - height / 2;
@@ -35,7 +34,7 @@ const Background = ({ body, zIndex }: BackgroundProps) => {
       }}
     >
       <img
-        src={`${BackgroundImage}`}
+        src={`${image}`}
         style={{
           objectFit: "fill",
         }}
@@ -50,7 +49,8 @@ export default ({
   position,
   size,
   zIndex,
-}: CreateBackgroundProps) => {
+  image,
+}: CreateComponentProps) => {
   const body = Matter.Bodies.rectangle(
     position.x,
     position.y,
@@ -62,6 +62,8 @@ export default ({
   return {
     body,
     parallax,
-    renderer: <Background body={body} zIndex={zIndex} />,
+    image,
+    zIndex,
+    renderer: <Component body={body} zIndex={zIndex} image={image} />,
   };
 };

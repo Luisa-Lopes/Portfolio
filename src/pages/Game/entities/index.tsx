@@ -4,6 +4,8 @@ import Floor from "./Floor";
 import Platform from "./Platform";
 import Camera from "./Camera";
 import Background from "./Background";
+import FrontEndBackground from "../ParallaxBackgrounds/FrontEnd";
+import BackEndBackground from "../ParallaxBackgrounds/BackEnd";
 
 const Entities = () => {
   const windowWidth = 800;
@@ -63,8 +65,7 @@ const Entities = () => {
       position: { x: windowWidth / 2, y: windowHeight / 2 },
       size: { height: windowHeight, width: windowWidth },
     }),
-
-    backgroundFront: Background({
+    background: Background({
       position: {
         x: windowWidth / 2,
         y: windowHeight / 2,
@@ -74,38 +75,13 @@ const Entities = () => {
         height: windowHeight,
       },
       label: "background-front",
-      image: "FrontEnd",
-      parallax: 0.3,
+
+      parallax: 0,
       zIndex: 0,
     }),
-    backgroundFrontBack: Background({
-      position: {
-        x: windowWidth / 2,
-        y: -windowHeight / 2,
-      },
-      size: {
-        width: windowWidth,
-        height: windowHeight,
-      },
-      label: "background-frontBack",
-      image: "FrontBack",
-      parallax: 0.3,
-      zIndex: 0,
-    }),
-    backgroundBack: Background({
-      position: {
-        x: windowWidth / 2,
-        y: (-windowHeight * 3) / 2,
-      },
-      size: {
-        width: windowWidth,
-        height: windowHeight,
-      },
-      label: "background-back",
-      image: "BackEnd",
-      parallax: 0.3,
-      zIndex: 0,
-    }),
+
+    ...FrontEndBackground({ windowWidth, windowHeight }),
+    //...BackEndBackground({ windowWidth, windowHeight: -windowHeight * 5 }),
   };
 };
 
