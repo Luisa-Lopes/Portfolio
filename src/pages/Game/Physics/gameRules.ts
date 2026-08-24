@@ -31,7 +31,7 @@ const coinSize = { height: 30, width: 30 };
 const minPlatformGap = 100;
 const maxPlatformGap = 115;
 
-export const createGameRules = (onGameOver: () => void) => {
+export const createGameRules = (onGameOver: (score: number) => void) => {
   let isGameOver = false;
   let nextPlatformIndex = 4;
   let nextCoinIndex = 0;
@@ -87,7 +87,7 @@ export const createGameRules = (onGameOver: () => void) => {
 
     if (touchedFloor || leftScreen) {
       isGameOver = true;
-      onGameOver();
+      onGameOver(score.score);
       return entities;
     }
 

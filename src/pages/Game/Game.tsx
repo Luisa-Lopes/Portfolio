@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { GameEngine } from "react-game-engine";
 import { Physics } from "./Physics/main";
 import Entities from "./entities";
@@ -67,7 +67,7 @@ const Game = () => {
     "gameOver",
   );
   const [round, setRound] = useState<number>(0);
-  const [score] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
 
   const gameEngineRef = useRef<GameEngine | null>(null);
 
@@ -101,7 +101,10 @@ const Game = () => {
   const movement = useMemo(() => createMovement(keyboard), [keyboard]);
   const gameRules = useMemo(() => {
     void round;
-    return createGameRules(() => setGameState("gameOver"));
+    return createGameRules((score: number) => {
+      setGameState("gameOver");
+      setScore(score);
+    });
   }, [round]);
 
   const handleStartGame = () => {
