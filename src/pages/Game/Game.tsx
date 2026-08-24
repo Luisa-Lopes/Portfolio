@@ -7,6 +7,7 @@ import { createGameRules } from "./Physics/gameRules";
 import { useKeyboard } from "./hooks/useKeyboard";
 import "./Game.css";
 import MainStart from "./Components/Start";
+import GameOver from "./Components/GameOver";
 
 const getViewport = () => ({
   width: Math.min(window.innerWidth, 800),
@@ -63,10 +64,11 @@ const Game = () => {
   const [viewport, setViewport] = useState(getViewport);
 
   const [gameState, setGameState] = useState<"start" | "playing" | "gameOver">(
-    "start",
+    "gameOver",
   );
+  const [round, setRound] = useState<number>(0);
+  const [score] = useState<number>(0);
 
-  const [round, setRound] = useState(0);
   const gameEngineRef = useRef<GameEngine | null>(null);
 
   useEffect(() => {
@@ -111,20 +113,12 @@ const Game = () => {
     setRound((currentRound) => currentRound + 1);
   };
 
+  const returnToStart = () => {
+    setGameState("start");
+  };
+
   if (gameState === "start")
     return <MainStart onClickStart={handleStartGame} />;
-
-  if (gameState === "gameOver")
-    return (
-      <section className="game-shell">
-        <div className="game-over">
-          <h1 style={{ margin: 0 }}>Game over</h1>
-          <button onClick={restartGame} type="button">
-            Jogar novamente
-          </button>
-        </div>
-      </section>
-    );
 
   return (
     <section className="game-shell">
@@ -140,6 +134,14 @@ const Game = () => {
         />
         <GameControls setKey={setKey} />
       </div>
+
+      {gameState === "gameOver" && (
+        <GameOver
+          restartGame={restartGame}
+          score={score}
+          returnToStart={returnToStart}
+        />
+      )}
     </section>
   );
 };

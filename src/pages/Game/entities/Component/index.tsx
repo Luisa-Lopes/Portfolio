@@ -1,6 +1,6 @@
 import Matter from "matter-js";
 import "./style.css";
-import { EntitiesSize } from "../entitiesSize";
+import { EntitiesSize } from "../../utils/entitiesSize";
 
 interface ComponentProps {
   body: Matter.Body;
