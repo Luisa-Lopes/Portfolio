@@ -6,7 +6,8 @@
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background: #09142f;
+  background: linear-gradient(135deg, #312e81 0%, #1d4ed8 60%, #312e81 100%);
+  color: #f8fafc;
 }
 
 .game-viewport {

@@ -4,9 +4,9 @@ import { Physics } from "./Physics/main";
 import Entities from "./entities";
 import { createMovement } from "./Physics/Movement";
 import { createGameRules } from "./Physics/gameRules";
-import Start from "./Components/Start";
 import { useKeyboard } from "./hooks/useKeyboard";
 import "./Game.css";
+import MainStart from "./Components/Start";
 
 const getViewport = () => ({
   width: Math.min(window.innerWidth, 800),
@@ -31,14 +31,27 @@ const GameControls = ({ setKey }: GameControlsProps) => {
   return (
     <div className="game-controls" aria-label="Controles do jogo">
       <div className="game-control-group">
-        <button type="button" aria-label="Mover para a esquerda" {...controlProps("KeyA")}>
+        <button
+          type="button"
+          aria-label="Mover para a esquerda"
+          {...controlProps("KeyA")}
+        >
           ←
         </button>
-        <button type="button" aria-label="Mover para a direita" {...controlProps("KeyD")}>
+        <button
+          type="button"
+          aria-label="Mover para a direita"
+          {...controlProps("KeyD")}
+        >
           →
         </button>
       </div>
-      <button className="game-jump" type="button" aria-label="Pular" {...controlProps("KeyW")}>
+      <button
+        className="game-jump"
+        type="button"
+        aria-label="Pular"
+        {...controlProps("KeyW")}
+      >
         Pular
       </button>
     </div>
@@ -50,7 +63,7 @@ const Game = () => {
   const [viewport, setViewport] = useState(getViewport);
 
   const [gameState, setGameState] = useState<"start" | "playing" | "gameOver">(
-    "playing",
+    "start",
   );
 
   const [round, setRound] = useState(0);
@@ -79,21 +92,15 @@ const Game = () => {
     };
   }, [round, viewport]);
 
-  const entities = useMemo(
-    () => {
-      void round;
-      return Entities({ viewport });
-    },
-    [round, viewport],
-  );
+  const entities = useMemo(() => {
+    void round;
+    return Entities({ viewport });
+  }, [round, viewport]);
   const movement = useMemo(() => createMovement(keyboard), [keyboard]);
-  const gameRules = useMemo(
-    () => {
-      void round;
-      return createGameRules(() => setGameState("gameOver"));
-    },
-    [round],
-  );
+  const gameRules = useMemo(() => {
+    void round;
+    return createGameRules(() => setGameState("gameOver"));
+  }, [round]);
 
   const handleStartGame = () => {
     setGameState("playing");
@@ -104,19 +111,21 @@ const Game = () => {
     setRound((currentRound) => currentRound + 1);
   };
 
-  if (gameState === "start") return <Start onClickStart={handleStartGame} />;
+  if (gameState === "start")
+    return <MainStart onClickStart={handleStartGame} />;
 
   if (gameState === "gameOver")
     return (
       <section className="game-shell">
         <div className="game-over">
-        <h1 style={{ margin: 0 }}>Game over</h1>
-        <button onClick={restartGame} type="button">
-          Jogar novamente
-        </button>
+          <h1 style={{ margin: 0 }}>Game over</h1>
+          <button onClick={restartGame} type="button">
+            Jogar novamente
+          </button>
         </div>
       </section>
     );
+
   return (
     <section className="game-shell">
       <div className="game-viewport">
