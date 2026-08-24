@@ -1,0 +1,47 @@
+.score {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 200;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-width: 110px;
+  padding: 6px 12px 8px;
+
+  background: #5b321d;
+  border: 3px solid #2b160d;
+  border-radius: 4px;
+
+  box-shadow:
+    inset 0 0 0 2px #8a512d,
+    4px 4px 0 #2b160d;
+
+  font-family: "Press Start 2P", monospace;
+  image-rendering: pixelated;
+}
+
+.score-label {
+  font-size: 8px;
+  color: #f8d477;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.score-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #fff4c2;
+  font-size: 14px;
+
+  text-shadow: 2px 2px 0 #2b160d;
+}
+
+.score-coin {
+  font-size: 16px;
+  filter: drop-shadow(2px 2px 0 #2b160d);
+}

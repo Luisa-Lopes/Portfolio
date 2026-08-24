@@ -23,6 +23,7 @@ interface GameEntities {
   viewport: { height: number; width: number };
   [key: string]: unknown;
   camera: BodyEntity;
+  score: { score: number; body: BodyEntity };
 }
 
 const platformSize = { height: 30, width: 140 };
@@ -38,7 +39,7 @@ export const createGameRules = (onGameOver: () => void) => {
   return (entities: GameEntities) => {
     if (isGameOver) return entities;
 
-    const { player, floor, viewport, camera } = entities;
+    const { player, floor, viewport, camera, score } = entities;
     const platforms = Object.entries(entities)
       .filter(([key]) => key.startsWith("platform"))
       .map(([key, entity]) => [key, entity as BodyEntity] as const);
@@ -60,6 +61,8 @@ export const createGameRules = (onGameOver: () => void) => {
 
       if (Matter.Query.collides(player.body, [coin.body]).length > 0) {
         Matter.World.remove(entities.physics.world, coin.body);
+
+        score.score += 10;
         delete entities[coinKey];
       }
     });

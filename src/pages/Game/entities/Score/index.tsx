@@ -1,4 +1,5 @@
 import Matter from "matter-js";
+import "./style.css";
 
 interface IScore {
   score: number;
@@ -14,16 +15,13 @@ interface CreateScoreProps {
 
 const Score = ({ score }: IScore) => {
   return (
-    <div
-      style={{
-        position: "absolute",
-        right: 0,
-        top: 20,
-        overflow: "hidden",
-        zIndex: 100,
-      }}
-    >
-      {score}
+    <div className="score">
+      <span className="score-label">SCORE</span>
+
+      <div className="score-value">
+        <span className="score-coin">🪙</span>
+        <span>{score.toString().padStart(4, "0")}</span>
+      </div>
     </div>
   );
 };
@@ -34,7 +32,7 @@ export default ({ world, label, score, position, size }: CreateScoreProps) => {
     position.y,
     size.width,
     size.height,
-    { label, isStatic: true },
+    { label, isStatic: true, isSensor: true },
   );
 
   Matter.World.add(world, [body]);
@@ -42,6 +40,7 @@ export default ({ world, label, score, position, size }: CreateScoreProps) => {
   return {
     body,
     position,
+    score,
     renderer: <Score score={score} />,
   };
 };

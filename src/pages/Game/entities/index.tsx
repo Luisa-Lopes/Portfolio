@@ -88,7 +88,7 @@ const Entities = ({ viewport }: IEntities) => {
       label: "score",
       score: 0,
       position: { x: windowWidth, y: 0 },
-      size: { height: 100, width: 100 },
+      size: { height: 300, width: 300 },
     }),
 
     // O jogador avança para valores de Y negativos. Cada cenário ocupa uma
