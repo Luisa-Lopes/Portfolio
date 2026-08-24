@@ -4,12 +4,17 @@ import Floor from "./Floor";
 import Platform from "./Platform";
 import Camera from "./Camera";
 import Background from "./Background";
-import FrontEndBackground from "../ParallaxBackgrounds/FrontEnd";
 import BackEndBackground from "../ParallaxBackgrounds/BackEnd";
+import FrontEndBackground from "../ParallaxBackgrounds/FrontEnd";
+import Score from "./Score";
 
-const Entities = () => {
-  const windowWidth = 800;
-  const windowHeight = window.innerHeight;
+interface IEntities {
+  viewport: { width: number; height: number };
+}
+
+const Entities = ({ viewport }: IEntities) => {
+  const windowWidth = viewport.width;
+  const windowHeight = viewport.height;
   const engine = Matter.Engine.create({ enableSleeping: false });
   const world = engine.world;
 
@@ -75,13 +80,26 @@ const Entities = () => {
         height: windowHeight,
       },
       label: "background-front",
-
       parallax: 0,
       zIndex: 0,
     }),
+    score: Score({
+      world,
+      label: "score",
+      score: 0,
+      position: { x: windowWidth, y: 0 },
+      size: { height: 100, width: 100 },
+    }),
 
-    ...FrontEndBackground({ windowWidth, windowHeight }),
-    //...BackEndBackground({ windowWidth, windowHeight: -windowHeight * 5 }),
+    // O jogador avança para valores de Y negativos. Cada cenário ocupa uma
+    // altura de tela e começa onde o anterior termina.
+    ...FrontEndBackground({ windowWidth, windowHeight, offsetY: 0 }),
+    ...BackEndBackground({
+      windowWidth,
+      windowHeight,
+      offsetY: -windowHeight,
+      //offsetY: 0,
+    }),
   };
 };
 

@@ -1,5 +1,6 @@
 import Matter from "matter-js";
 import Platform from "../entities/Platform";
+import Coin from "../entities/Coin";
 
 interface BodyEntity {
   body: Matter.Body;
@@ -7,6 +8,12 @@ interface BodyEntity {
 
 interface BackgroundEntity extends BodyEntity {
   parallax: number;
+  isBackground: true;
+}
+
+interface CoinEntity extends BodyEntity {
+  platformKey?: string;
+  isBackground?: false;
 }
 
 interface GameEntities {
@@ -19,12 +26,14 @@ interface GameEntities {
 }
 
 const platformSize = { height: 30, width: 140 };
+const coinSize = { height: 30, width: 30 };
 const minPlatformGap = 100;
 const maxPlatformGap = 115;
 
 export const createGameRules = (onGameOver: () => void) => {
   let isGameOver = false;
   let nextPlatformIndex = 4;
+  let nextCoinIndex = 0;
 
   return (entities: GameEntities) => {
     if (isGameOver) return entities;
@@ -33,18 +42,27 @@ export const createGameRules = (onGameOver: () => void) => {
     const platforms = Object.entries(entities)
       .filter(([key]) => key.startsWith("platform"))
       .map(([key, entity]) => [key, entity as BodyEntity] as const);
-    const backgrounds = Object.entries(entities)
-      .filter(
-        ([key]) =>
-          key.startsWith("background") ||
-          key.startsWith("monitor") ||
-          key.startsWith("cloud") ||
-          key.startsWith("html") ||
-          key.startsWith("css") ||
-          key.startsWith("mural") ||
-          key.startsWith("server"),
-      )
-      .map(([, entity]) => entity as BackgroundEntity);
+    const backgrounds = Object.values(entities).filter(
+      (entity): entity is BackgroundEntity =>
+        typeof entity === "object" &&
+        entity !== null &&
+        "isBackground" in entity &&
+        entity.isBackground === true &&
+        "body" in entity &&
+        "parallax" in entity,
+    );
+
+    Object.entries(entities).forEach(([coinKey, entity]) => {
+      if (!coinKey.startsWith("coin")) return;
+
+      const coin = entity as CoinEntity;
+      if (!coin?.body) return;
+
+      if (Matter.Query.collides(player.body, [coin.body]).length > 0) {
+        Matter.World.remove(entities.physics.world, coin.body);
+        delete entities[coinKey];
+      }
+    });
 
     const playerHalfWidth =
       (player.body.bounds.max.x - player.body.bounds.min.x) / 2;
@@ -60,7 +78,6 @@ export const createGameRules = (onGameOver: () => void) => {
       });
       Matter.Body.setVelocity(player.body, { x: 0, y: player.body.velocity.y });
     }
-
     const touchedFloor =
       Matter.Query.collides(player.body, [floor.body]).length > 0;
     const leftScreen = player.body.position.y > viewport.height + 100;
@@ -84,8 +101,17 @@ export const createGameRules = (onGameOver: () => void) => {
           y: offset * background.parallax,
         });
       });
-      platforms.forEach(([, platform]) => {
+      platforms.forEach(([platformKey, platform]) => {
         Matter.Body.translate(platform.body, { x: 0, y: offset });
+
+        Object.entries(entities).forEach(([coinKey, entity]) => {
+          if (!coinKey.startsWith("coin")) return;
+
+          const coin = entity as CoinEntity;
+          if (coin.platformKey === platformKey && coin.body) {
+            Matter.Body.translate(coin.body, { x: 0, y: offset });
+          }
+        });
       });
     }
 
@@ -121,10 +147,45 @@ export const createGameRules = (onGameOver: () => void) => {
         size: platformSize,
         label: key,
       });
+
+      nextCoinIndex = generateCoins(nextCoinIndex, entities, x, y, key);
+
       nextPlatformIndex += 1;
       highestPlatformY = y;
     }
 
     return entities;
   };
+};
+
+const generateCoins = (
+  nextCoinIndex: number,
+  entities: GameEntities,
+  x: number,
+  y: number,
+  platformKey: string,
+) => {
+  const randomNum = Math.floor(Math.random() * 5);
+  let coinX = x - 30 * Math.floor(randomNum / 2);
+
+  for (let index = 0; index < randomNum; index += 1) {
+    const coinKey = `coin${nextCoinIndex}`;
+
+    const coinEntity = Coin({
+      world: entities.physics.world,
+      color: "",
+      position: { x: coinX, y: y - 30 },
+      size: coinSize,
+      coinType: Math.floor(Math.random() * 12) + 1,
+      parallax: 0.2,
+    }) as CoinEntity;
+
+    coinEntity.platformKey = platformKey;
+    entities[coinKey] = coinEntity;
+
+    coinX += 30;
+    nextCoinIndex += 1;
+  }
+
+  return nextCoinIndex;
 };

@@ -62,6 +62,7 @@ export default ({
   return {
     body,
     parallax,
+    isBackground: true,
     renderer: <Background body={body} zIndex={zIndex} />,
   };
 };

@@ -30,11 +30,19 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
   min-width: 320px;
+  height: 100%;
   margin: 0;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
 }
 
 button,
