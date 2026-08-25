@@ -25,12 +25,14 @@ interface GameEntities {
   camera: BodyEntity;
   score: { score: number; body: BodyEntity };
   platformEng: BodyEntity;
+  door: BodyEntity;
 }
 
 const platformSize = { height: 30, width: 140 };
 const coinSize = { height: 30, width: 30 };
 const minPlatformGap = 110;
 const maxPlatformGap = 115;
+const endGameParallax = 0.4;
 
 export const createGameRules = (onGameOver: (score: number) => void) => {
   let isGameOver = false;
@@ -40,7 +42,8 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
   return (entities: GameEntities) => {
     if (isGameOver) return entities;
 
-    const { player, floor, viewport, camera, score, platformEng } = entities;
+    const { player, floor, viewport, camera, score, platformEng, door } =
+      entities;
 
     const platforms = Object.entries(entities)
       .filter(([key]) => key.startsWith("platform") && key !== "platformEng")
@@ -94,6 +97,14 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
       return entities;
     }
 
+    // A porta é um sensor: o jogador pode atravessá-la e conclui a jornada
+    // ao alcançá-la no cenário final.
+    if (Matter.Query.collides(player.body, [door.body]).length > 0) {
+      isGameOver = true;
+      onGameOver(score.score);
+      return entities;
+    }
+
     const cameraLine = viewport.height * 0.35;
     if (player.body.position.y < cameraLine) {
       const offset = cameraLine - player.body.position.y;
@@ -101,6 +112,15 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
       Matter.Body.translate(player.body, { x: 0, y: offset });
       Matter.Body.translate(camera.body, { x: 0, y: offset });
       Matter.Body.translate(floor.body, { x: 0, y: offset });
+      // These physical entities must use the same parallax as the final art.
+      Matter.Body.translate(platformEng.body, {
+        x: 0,
+        y: offset * endGameParallax,
+      });
+      Matter.Body.translate(door.body, {
+        x: 0,
+        y: offset * endGameParallax,
+      });
 
       backgrounds.forEach((background) => {
         Matter.Body.translate(background.body, {

@@ -1,4 +1,4 @@
-import Text from "../../entities/Text";
+import type Matter from "matter-js";
 import Door from "../../entities/Door";
 import Platform from "../../entities/Platform";
 import PlatformImage from "../../../../assets/game/plataforma.png";
@@ -15,26 +15,24 @@ interface IProjects {
 const EndGame = ({ world, windowWidth, windowHeight, offsetY }: IProjects) => {
   return {
     door: Door({
-      position: { x: windowWidth * 0.3, y: windowHeight * 0.54 + offsetY },
+      world,
+      position: { x: windowWidth * 0.3, y: windowHeight * 0.51 + offsetY },
       size: { height: windowHeight * 0.35, width: windowWidth * 0.3 },
       label: "door",
       parallax: 0.4,
     }),
-    platformEng: Component({
+    platformEng: Platform({
+      world,
       position: { x: windowWidth / 2, y: windowHeight * 0.7 + offsetY },
-      size: "large",
+      size: { width: windowWidth * 0.95, height: windowHeight * 0.2 },
       label: "platformEng",
-      parallax: 0.4,
-      zIndex: 20,
       image: PlatformImage,
-      windowHeight,
-      windowWidth,
-      collisionMask: 0x0002,
     }),
     text: Component({
       position: { x: windowWidth * 0.7, y: windowHeight * 0.4 + offsetY },
       size: "large",
       label: "saudacao",
+      // Mantém o mesmo parallax dos cenários que o antecedem.
       parallax: 0.4,
       zIndex: 20,
       image: Saudacao,

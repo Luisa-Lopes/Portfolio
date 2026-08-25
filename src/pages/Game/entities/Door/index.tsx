@@ -7,6 +7,7 @@ interface DoorProps {
 }
 
 interface CreateDoorProps {
+  world: Matter.World;
   position: { x: number; y: number };
   size: { width: number; height: number };
   label: string;
@@ -53,19 +54,19 @@ const Door = ({ body }: DoorProps) => {
   );
 };
 
-export default ({ position, size, label, parallax }: CreateDoorProps) => {
+export default ({ world, position, size, label, parallax }: CreateDoorProps) => {
   const body = Matter.Bodies.rectangle(
     position.x,
     position.y,
     size.width,
     size.height,
-    { collisionFilter: { mask: 0 }, isStatic: true, label },
+    { collisionFilter: { mask: 0 }, isSensor: true, isStatic: true, label },
   );
+  Matter.World.add(world, [body]);
 
   return {
     body,
     parallax,
-    isBackground: true,
     renderer: <Door body={body} />,
   };
 };
