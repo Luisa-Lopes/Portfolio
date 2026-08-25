@@ -7,6 +7,8 @@ import Background from "./Background";
 import BackEndBackground from "../ParallaxBackgrounds/BackEnd";
 import FrontEndBackground from "../ParallaxBackgrounds/FrontEnd";
 import Score from "./Score";
+import Projects from "../ParallaxBackgrounds/Projects";
+import EndGame from "../ParallaxBackgrounds/EndGame";
 
 interface IEntities {
   viewport: { width: number; height: number };
@@ -93,11 +95,18 @@ const Entities = ({ viewport }: IEntities) => {
 
     // O jogador avança para valores de Y negativos. Cada cenário ocupa uma
     // altura de tela e começa onde o anterior termina.
-    ...FrontEndBackground({ windowWidth, windowHeight, offsetY: 0 }),
-    ...BackEndBackground({
+    //...FrontEndBackground({ windowWidth, windowHeight, offsetY: 0 }),
+    //...Projects({ windowWidth, windowHeight, offsetY: -windowHeight }),
+    /*...BackEndBackground({
       windowWidth,
       windowHeight,
-      offsetY: -windowHeight,
+      offsetY: -2 * windowHeight,
+      //offsetY: 0,
+    }), */
+    ...EndGame({
+      windowWidth,
+      windowHeight,
+      offsetY: 0,
       //offsetY: 0,
     }),
   };

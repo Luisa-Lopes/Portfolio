@@ -158,4 +158,22 @@ export const EntitiesSize = ({
     height: windowWidth * 0.35,
     label: "css",
   },
+  {
+    size: "large",
+    width: windowWidth * 0.3,
+    height: windowWidth * 0.35,
+    label: "css",
+  },
+  {
+    size: "large",
+    width: windowWidth * 0.3,
+    height: windowWidth * 0.7,
+    label: "door",
+  },
+  {
+    size: "large",
+    width: windowWidth,
+    height: windowWidth * 0.3,
+    label: "platformDoor",
+  },
 ];

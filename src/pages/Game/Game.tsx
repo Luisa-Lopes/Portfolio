@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { PauseIcon } from "@heroicons/react/24/solid";
 import { GameEngine } from "react-game-engine";
 import { Physics } from "./Physics/main";
 import Entities from "./entities";
@@ -8,6 +9,7 @@ import { useKeyboard } from "./hooks/useKeyboard";
 import "./Game.css";
 import MainStart from "./Components/Start";
 import GameOver from "./Components/GameOver";
+import Pause from "./Components/Pause";
 
 const getViewport = () => ({
   width: Math.min(window.innerWidth, 800),
@@ -16,9 +18,10 @@ const getViewport = () => ({
 
 interface GameControlsProps {
   setKey: (code: string, isPressed: boolean) => void;
+  onPause: () => void;
 }
 
-const GameControls = ({ setKey }: GameControlsProps) => {
+const GameControls = ({ setKey, onPause }: GameControlsProps) => {
   const controlProps = (code: string) => ({
     onPointerDown: (event: React.PointerEvent<HTMLButtonElement>) => {
       event.currentTarget.setPointerCapture(event.pointerId);
@@ -31,6 +34,15 @@ const GameControls = ({ setKey }: GameControlsProps) => {
 
   return (
     <div className="game-controls" aria-label="Controles do jogo">
+      <button
+        className="game-pause-button"
+        type="button"
+        aria-label="Pausar jogo"
+        title="Pausar jogo"
+        onClick={onPause}
+      >
+        <PauseIcon aria-hidden="true" />
+      </button>
       <div className="game-control-group">
         <button
           type="button"
@@ -53,7 +65,7 @@ const GameControls = ({ setKey }: GameControlsProps) => {
         aria-label="Pular"
         {...controlProps("KeyW")}
       >
-        Pular
+        <h6>Pular</h6>
       </button>
     </div>
   );
@@ -63,9 +75,9 @@ const Game = () => {
   const { keys: keyboard, setKey } = useKeyboard();
   const [viewport, setViewport] = useState(getViewport);
 
-  const [gameState, setGameState] = useState<"start" | "playing" | "gameOver">(
-    "gameOver",
-  );
+  const [gameState, setGameState] = useState<
+    "start" | "playing" | "pause" | "gameOver"
+  >("playing");
   const [round, setRound] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
 
@@ -94,6 +106,27 @@ const Game = () => {
     };
   }, [round, viewport]);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setGameState((currentState) =>
+          currentState === "playing" ? "pause" : currentState,
+        );
+        return;
+      }
+
+      setGameState((currentState) =>
+        currentState === "pause" ? "playing" : currentState,
+      );
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
   const entities = useMemo(() => {
     void round;
     return Entities({ viewport });
@@ -120,6 +153,10 @@ const Game = () => {
     setGameState("start");
   };
 
+  const pauseGame = () => {
+    setGameState("pause");
+  };
+
   if (gameState === "start")
     return <MainStart onClickStart={handleStartGame} />;
 
@@ -135,13 +172,21 @@ const Game = () => {
           className="game-engine"
           systems={[movement, Physics, gameRules]}
         />
-        <GameControls setKey={setKey} />
+        <GameControls setKey={setKey} onPause={pauseGame} />
       </div>
 
       {gameState === "gameOver" && (
         <GameOver
           restartGame={restartGame}
           score={score}
+          returnToStart={returnToStart}
+        />
+      )}
+
+      {gameState === "pause" && (
+        <Pause
+          continueGame={() => setGameState("playing")}
+          restartGame={restartGame}
           returnToStart={returnToStart}
         />
       )}

@@ -28,7 +28,7 @@ interface GameEntities {
 
 const platformSize = { height: 30, width: 140 };
 const coinSize = { height: 30, width: 30 };
-const minPlatformGap = 100;
+const minPlatformGap = 110;
 const maxPlatformGap = 115;
 
 export const createGameRules = (onGameOver: (score: number) => void) => {
@@ -130,7 +130,7 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
           ? platform
           : highest,
       );
-      const maxHorizontalStep = Math.min(110, viewport.width * 0.24);
+      const maxHorizontalStep = Math.min(110, viewport.width * 0.3);
       const horizontalStep = (Math.random() * 2 - 1) * maxHorizontalStep;
 
       const x = Math.max(
@@ -169,7 +169,7 @@ const generateCoins = (
   platformKey: string,
 ) => {
   const randomNum = Math.floor(Math.random() * 5);
-  let coinX = x - 30 * Math.floor(randomNum / 2);
+  let coinX = x - 27 * Math.floor(randomNum / 2);
 
   for (let index = 0; index < randomNum; index += 1) {
     const coinKey = `coin${nextCoinIndex}`;

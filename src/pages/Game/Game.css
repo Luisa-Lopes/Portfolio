@@ -22,6 +22,108 @@
   height: 100%;
 }
 
+.game-pause-overlay {
+  position: absolute;
+  z-index: 280;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.32);
+  backdrop-filter: blur(3px);
+}
+
+.game-pause-message {
+  display: grid;
+  justify-items: center;
+  gap: 0.45rem;
+  padding: 1.5rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 1.5rem;
+  background: rgba(15, 23, 42, 0.42);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.28);
+  color: #f8fafc;
+  text-align: center;
+  backdrop-filter: blur(14px);
+}
+
+.game-pause-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: rgba(252, 211, 77, 0.16);
+  color: #fcd34d;
+}
+
+.game-pause-icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.game-pause-message strong {
+  font-size: 1.2rem;
+}
+
+.game-pause-message > span:last-child {
+  color: #dbeafe;
+  font-size: 0.85rem;
+}
+
+.game-pause-actions {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 0.8rem;
+}
+
+.game-pause-actions button,
+.game-pause-button {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.35);
+  color: #eff6ff;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.game-pause-actions button:first-child {
+  border-color: rgba(251, 191, 36, 0.7);
+  background: #fbbf24;
+  color: #172554;
+}
+
+.game-pause-actions button:hover,
+.game-pause-button:hover {
+  transform: translateY(-2px);
+  background: rgba(59, 130, 246, 0.7);
+  color: white;
+}
+
+.game-pause-actions button:first-child:hover {
+  background: #fcd34d;
+  color: #172554;
+}
+
+.game-pause-actions button:focus-visible,
+.game-pause-button:focus-visible {
+  outline: 3px solid #7dd3fc;
+  outline-offset: 3px;
+}
+
+.game-pause-actions svg,
+.game-pause-button svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
 .game-controls button {
   border: 0;
   font: inherit;
@@ -32,6 +134,7 @@
 .game-controls {
   position: absolute;
   z-index: 250;
+  top: 0;
   right: max(1rem, env(safe-area-inset-right));
   bottom: max(1rem, env(safe-area-inset-bottom));
   left: max(1rem, env(safe-area-inset-left));
@@ -41,8 +144,28 @@
   pointer-events: none;
 }
 
-.game-control-group {
+.game-pause-button {
+  position: absolute;
+  top: max(1rem, env(safe-area-inset-top));
+  right: 0;
+  width: 2.8rem !important;
+  height: 2.8rem !important;
+  background: #5b321d !important;
+  border: 3px solid #2b160d !important;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 2px #8a512d,
+    4px 4px 0 #2b160d;
+}
+
+.game-control-group,
+.game-jump {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-control-group {
   gap: 0.7rem;
 }
 
@@ -74,6 +197,14 @@
   .game-controls {
     display: flex;
   }
+
+  .game-control-group {
+    display: flex;
+  }
+
+  .game-controls .game-jump {
+    display: grid;
+  }
 }
 
 @media (max-width: 380px) {
@@ -85,6 +216,11 @@
   .game-controls .game-jump {
     width: 3.8rem;
     height: 3.8rem;
+  }
+
+  .game-pause-button {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
   }
 }
 

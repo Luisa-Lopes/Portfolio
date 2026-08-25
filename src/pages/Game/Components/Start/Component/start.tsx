@@ -28,7 +28,7 @@ const Start = ({ clouds, transition, loadInformation }: IStart) => {
 
   return (
     <section
-      className={`game-start-shell game-start-transition ${transition} w-full h-full flex  items-center p-5`}
+      className={`game-start-shell game-start-transition ${transition} w-full h-full flex items-center md:overflow-hidden overflow-auto p-5`}
     >
       <div className="game-start-glow" />
 
@@ -40,7 +40,7 @@ const Start = ({ clouds, transition, loadInformation }: IStart) => {
 
       <div className="flex flex-col lg:flex-row z-30 gap-3">
         <div className="flex flex-col z-50 gap-3 ">
-          <h1 className="font-honk bg-linear-to-r from-purple-600 to-blue-700 bg-clip-text text-5xl font-extrabold text-transparent p-0 m-0  z-50">
+          <h1 className="font-honk bg-linear-to-r from-black to-purple-500 bg-clip-text text-5xl font-extrabold text-transparent p-0 m-0  z-50">
             Portifólio Game
           </h1>
           <div className="typing-line game-copy__typing">
@@ -88,7 +88,7 @@ const Start = ({ clouds, transition, loadInformation }: IStart) => {
             </p>
           </div>
 
-          <div className="player-stage game-panel__player ">
+          <div className="player-stage game-panel__player items-center justify-center flex">
             <img src={player} alt="Personagem do jogo" />
           </div>
         </div>
