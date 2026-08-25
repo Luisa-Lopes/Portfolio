@@ -5,7 +5,6 @@ interface TextProps {
 }
 
 interface CreateTextProps {
-  world: Matter.World;
   parallax: number;
   position: { x: number; y: number };
   size: { width: number; height: number };
@@ -34,26 +33,19 @@ const Text = ({ body }: TextProps) => {
   );
 };
 
-export default ({
-  world,
-  position,
-  size,
-  label,
-  parallax,
-}: CreateTextProps) => {
+export default ({ position, size, label, parallax }: CreateTextProps) => {
   const body = Matter.Bodies.rectangle(
     position.x,
     position.y,
     size.width,
     size.height,
-    { label, isStatic: true },
+    { collisionFilter: { mask: 0 }, isStatic: true, label },
   );
-  Matter.World.add(world, [body]);
 
   return {
     body,
     parallax,
-    position,
+    isBackground: true,
     renderer: <Text body={body} />,
   };
 };

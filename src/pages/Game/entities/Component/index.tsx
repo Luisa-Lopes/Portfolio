@@ -18,6 +18,7 @@ interface CreateComponentProps {
   windowHeight: number;
   zIndex: number;
   image: string;
+  collisionMask?: number;
 }
 
 const Component = ({ body, zIndex, image, label }: ComponentProps) => {
@@ -57,6 +58,7 @@ export default ({
   image,
   windowWidth,
   windowHeight,
+  collisionMask = 0,
 }: CreateComponentProps) => {
   const bodySize = EntitiesSize({ windowWidth, windowHeight })?.find(
     (f) => f.label == label && f.size == size,
@@ -72,7 +74,7 @@ export default ({
     position.y,
     bodySize?.width,
     bodySize?.height,
-    { collisionFilter: { mask: 0 }, isStatic: true, label },
+    { collisionFilter: { mask: collisionMask }, isStatic: true, label },
   );
 
   return {

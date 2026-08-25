@@ -24,6 +24,7 @@ interface GameEntities {
   [key: string]: unknown;
   camera: BodyEntity;
   score: { score: number; body: BodyEntity };
+  platformEng: BodyEntity;
 }
 
 const platformSize = { height: 30, width: 140 };
@@ -39,10 +40,12 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
   return (entities: GameEntities) => {
     if (isGameOver) return entities;
 
-    const { player, floor, viewport, camera, score } = entities;
+    const { player, floor, viewport, camera, score, platformEng } = entities;
+
     const platforms = Object.entries(entities)
-      .filter(([key]) => key.startsWith("platform"))
+      .filter(([key]) => key.startsWith("platform") && key !== "platformEng")
       .map(([key, entity]) => [key, entity as BodyEntity] as const);
+
     const backgrounds = Object.values(entities).filter(
       (entity): entity is BackgroundEntity =>
         typeof entity === "object" &&
@@ -98,6 +101,7 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
       Matter.Body.translate(player.body, { x: 0, y: offset });
       Matter.Body.translate(camera.body, { x: 0, y: offset });
       Matter.Body.translate(floor.body, { x: 0, y: offset });
+
       backgrounds.forEach((background) => {
         Matter.Body.translate(background.body, {
           x: 0,
@@ -122,14 +126,16 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
       ...platforms.map(([, platform]) => platform.body.position.y),
     );
 
-    while (highestPlatformY > 0) {
+    while (highestPlatformY > platformEng?.body?.position.y) {
       const minX = platformSize.width / 2;
       const maxX = viewport.width - minX;
+
       const highestPlatform = platforms.reduce((highest, platform) =>
         platform[1].body.position.y < highest[1].body.position.y
           ? platform
           : highest,
       );
+
       const maxHorizontalStep = Math.min(110, viewport.width * 0.3);
       const horizontalStep = (Math.random() * 2 - 1) * maxHorizontalStep;
 
@@ -141,11 +147,16 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
       const y =
         highestPlatformY -
         (minPlatformGap + Math.random() * (maxPlatformGap - minPlatformGap));
+
+      // Para quando a próxima plataforma alcançar a plataforma final.
+      if (y <= platformEng.body.position.y) {
+        break;
+      }
+
       const key = `platform${nextPlatformIndex}`;
 
       entities[key] = Platform({
         world: entities.physics.world,
-        color: "",
         position: { x, y },
         size: platformSize,
         label: key,
@@ -153,7 +164,7 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
 
       nextCoinIndex = generateCoins(nextCoinIndex, entities, x, y, key);
 
-      nextPlatformIndex += 1;
+      nextPlatformIndex++;
       highestPlatformY = y;
     }
 

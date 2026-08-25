@@ -42,28 +42,24 @@ const Entities = ({ viewport }: IEntities) => {
     }),
     platform0: Platform({
       world,
-      color: "",
       position: { x: windowWidth * 0.25, y: windowHeight - 95 },
       size: { height: 30, width: 140 },
       label: "platform0",
     }),
     platform1: Platform({
       world,
-      color: "",
       position: { x: windowWidth * 0.43, y: windowHeight - 205 },
       size: { height: 30, width: 140 },
       label: "platform1",
     }),
     platform2: Platform({
       world,
-      color: "",
       position: { x: windowWidth * 0.28, y: windowHeight - 315 },
       size: { height: 30, width: 140 },
       label: "platform2",
     }),
     platform3: Platform({
       world,
-      color: "",
       position: { x: windowWidth * 0.48, y: windowHeight - 425 },
       size: { height: 30, width: 140 },
       label: "platform3",
@@ -95,19 +91,18 @@ const Entities = ({ viewport }: IEntities) => {
 
     // O jogador avança para valores de Y negativos. Cada cenário ocupa uma
     // altura de tela e começa onde o anterior termina.
-    //...FrontEndBackground({ windowWidth, windowHeight, offsetY: 0 }),
-    //...Projects({ windowWidth, windowHeight, offsetY: -windowHeight }),
-    /*...BackEndBackground({
+    ...FrontEndBackground({ windowWidth, windowHeight, offsetY: 0 }),
+    ...Projects({ windowWidth, windowHeight, offsetY: -windowHeight }),
+    ...BackEndBackground({
       windowWidth,
       windowHeight,
       offsetY: -2 * windowHeight,
-      //offsetY: 0,
-    }), */
+    }),
     ...EndGame({
+      world,
       windowWidth,
       windowHeight,
-      offsetY: 0,
-      //offsetY: 0,
+      offsetY: -3 * windowHeight,
     }),
   };
 };

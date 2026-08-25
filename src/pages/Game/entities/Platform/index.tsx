@@ -1,21 +1,22 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import Matter from "matter-js";
-import platform from "../../../../assets/game/floor.png";
+import defaultPlatform from "../../../../assets/game/floor.png";
 
 interface PlatformProps {
   body: Matter.Body;
+  image: string;
 }
 
 interface CreatePlatformProps {
   world: Matter.World;
-  color: string;
   position: { x: number; y: number };
   size: { width: number; height: number };
   label: string;
+  image?: string;
 }
 
-const Platform = ({ body }: PlatformProps) => {
+const Platform = ({ body, image }: PlatformProps) => {
   const width = body.bounds.max.x - body.bounds.min.x;
   const height = body.bounds.max.y - body.bounds.min.y;
 
@@ -27,7 +28,7 @@ const Platform = ({ body }: PlatformProps) => {
         top: body.position.y - height / 2,
         width,
         height,
-        backgroundImage: `url(${platform})`,
+        backgroundImage: `url(${image})`,
         backgroundPosition: "center 64%",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% auto",
@@ -41,10 +42,10 @@ const Platform = ({ body }: PlatformProps) => {
 
 export default ({
   world,
-  color,
   position,
   size,
   label,
+  image = defaultPlatform,
 }: CreatePlatformProps) => {
   const body = Matter.Bodies.rectangle(
     position.x,
@@ -57,8 +58,8 @@ export default ({
 
   return {
     body,
-    color,
     position,
-    renderer: <Platform body={body} />,
+    image,
+    renderer: <Platform body={body} image={image} />,
   };
 };

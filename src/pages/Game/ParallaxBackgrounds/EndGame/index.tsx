@@ -1,74 +1,47 @@
-import Component from "../../entities/Component";
-import Door from "../../../../assets/game/Door.png";
-import Platform from "../../../../assets/game/plataforma.png";
 import Text from "../../entities/Text";
+import Door from "../../entities/Door";
+import Platform from "../../entities/Platform";
+import PlatformImage from "../../../../assets/game/plataforma.png";
+import Component from "../../entities/Component";
+import Saudacao from "../../../../assets/game/saudacao.png";
 
 interface IProjects {
   windowWidth: number;
   windowHeight: number;
   offsetY: number;
+  world: Matter.World;
 }
 
-interface ComponentConfig {
-  x: number;
-  y: number;
-  size: "small" | "medium" | "large";
-  label: string;
-  parallax: number;
-  zIndex: number;
-  image: string;
-}
-
-const EndGame = ({ windowWidth, windowHeight, offsetY }: IProjects) => {
-  const createComponent = (config: ComponentConfig) =>
-    Component({
-      position: { x: config.x, y: config.y + offsetY },
-      size: config.size,
-      windowHeight: windowHeight,
-      windowWidth: windowWidth,
-      label: config.label,
-      parallax: config.parallax,
-      zIndex: config.zIndex,
-      image: config.image,
-    });
-
-  const createText = (config: PanelsConfig) =>
-    Text({
-      position: { x: config.x, y: config.y + offsetY },
-      size: config.size,
-      label: config.label,
-      parallax: config.parallax,
-    });
-
-  const backgroundComponents: ComponentConfig[] = [
-    // ===== NUVENS DISTANTES (parallax 0.1) =====
-    // Lado esquerdo
-    {
-      x: windowWidth * 0.25,
-      y: windowHeight * 0.56,
-      size: "large",
+const EndGame = ({ world, windowWidth, windowHeight, offsetY }: IProjects) => {
+  return {
+    door: Door({
+      position: { x: windowWidth * 0.3, y: windowHeight * 0.54 + offsetY },
+      size: { height: windowHeight * 0.35, width: windowWidth * 0.3 },
       label: "door",
       parallax: 0.4,
-      zIndex: 10,
-      image: Door,
-    },
-    {
-      x: windowWidth * 0.5,
-      y: windowHeight * 0.75,
+    }),
+    platformEng: Component({
+      position: { x: windowWidth / 2, y: windowHeight * 0.7 + offsetY },
       size: "large",
-      label: "platformDoor",
+      label: "platformEng",
       parallax: 0.4,
-      zIndex: 2,
-      image: Platform,
-    },
-  ];
-
-  return [
-    ...backgroundComponents.map((config, index) => ({
-      key: config.label + index,
-      ...createComponent(config),
-    })),
-  ];
+      zIndex: 20,
+      image: PlatformImage,
+      windowHeight,
+      windowWidth,
+      collisionMask: 0x0002,
+    }),
+    text: Component({
+      position: { x: windowWidth * 0.7, y: windowHeight * 0.4 + offsetY },
+      size: "large",
+      label: "saudacao",
+      parallax: 0.4,
+      zIndex: 20,
+      image: Saudacao,
+      windowHeight,
+      windowWidth,
+    }),
+  };
 };
 
 export default EndGame;

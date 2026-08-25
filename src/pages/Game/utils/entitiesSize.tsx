@@ -7,7 +7,7 @@ interface IEntitiesSize {
 
 export const EntitiesSize = ({
   windowWidth,
-  windowHeight: _windowHeight,
+  windowHeight: windowHeight,
 }: {
   windowWidth: number;
   windowHeight: number;
@@ -175,5 +175,17 @@ export const EntitiesSize = ({
     width: windowWidth,
     height: windowWidth * 0.3,
     label: "platformDoor",
+  },
+  {
+    size: "large",
+    width: windowWidth * 0.5,
+    height: windowWidth * 0.3,
+    label: "saudacao",
+  },
+  {
+    size: "large",
+    width: windowWidth * 0.95,
+    height: windowHeight * 0.13,
+    label: "platformEng",
   },
 ];
