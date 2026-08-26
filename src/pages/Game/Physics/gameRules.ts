@@ -33,6 +33,7 @@ const coinSize = { height: 30, width: 30 };
 const minPlatformGap = 110;
 const maxPlatformGap = 115;
 const endGameParallax = 0.4;
+const maxPlatformsPerUpdate = 3;
 
 export const createGameRules = (onGameOver: (score: number) => void) => {
   let isGameOver = false;
@@ -146,7 +147,12 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
       ...platforms.map(([, platform]) => platform.body.position.y),
     );
 
-    while (highestPlatformY > platformEng?.body?.position.y) {
+    let generatedPlatforms = 0;
+
+    while (
+      highestPlatformY > platformEng?.body?.position.y &&
+      generatedPlatforms < maxPlatformsPerUpdate
+    ) {
       const minX = platformSize.width / 2;
       const maxX = viewport.width - minX;
 
@@ -186,6 +192,7 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
 
       nextPlatformIndex++;
       highestPlatformY = y;
+      generatedPlatforms++;
     }
 
     return entities;

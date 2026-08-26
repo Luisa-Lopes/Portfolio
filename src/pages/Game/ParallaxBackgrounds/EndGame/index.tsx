@@ -16,7 +16,7 @@ const EndGame = ({ world, windowWidth, windowHeight, offsetY }: IProjects) => {
   return {
     door: Door({
       world,
-      position: { x: windowWidth * 0.3, y: windowHeight * 0.51 + offsetY },
+      position: { x: windowWidth * 0.3, y: windowHeight * 0.5 + offsetY },
       size: { height: windowHeight * 0.35, width: windowWidth * 0.3 },
       label: "door",
       parallax: 0.4,
@@ -24,7 +24,7 @@ const EndGame = ({ world, windowWidth, windowHeight, offsetY }: IProjects) => {
     platformEng: Platform({
       world,
       position: { x: windowWidth / 2, y: windowHeight * 0.7 + offsetY },
-      size: { width: windowWidth * 0.95, height: windowHeight * 0.2 },
+      size: { width: windowWidth * 0.95, height: windowHeight * 0.15 },
       label: "platformEng",
       image: PlatformImage,
     }),

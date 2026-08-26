@@ -133,13 +133,14 @@ export const createMovement = (keyboard: KeyboardState) => {
     }
 
     platforms.forEach((platform) => {
-      const playerBottom = player.body.bounds.max.y;
-      const platformTop = platform.bounds.min.y;
-      const playerIsAbovePlatform = playerBottom <= platformTop + 8;
+      // Mantém a plataforma atravessável somente durante a subida. Usar o
+      // centro do jogador evita desligar a colisão quando uma queda rápida
+      // cruza a pequena margem usada pelo teste anterior.
+      const isAbovePlatform = player.body.position.y <= platform.position.y;
       const isFalling = player.body.velocity.y >= 0;
 
       platform.collisionFilter.mask =
-        isFalling && playerIsAbovePlatform ? 0xffffffff : 0;
+        isFalling && isAbovePlatform ? 0xffffffff : 0;
     });
 
     jumpWasPressed = jumpPressed;

@@ -77,7 +77,7 @@ const Game = () => {
 
   const [gameState, setGameState] = useState<
     "start" | "playing" | "pause" | "gameOver"
-  >("playing");
+  >("start");
   const [round, setRound] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
 

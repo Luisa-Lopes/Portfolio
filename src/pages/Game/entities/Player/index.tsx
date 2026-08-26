@@ -58,7 +58,7 @@ const Player = ({ body, state, direction, frame }: PlayerProps) => {
         columns: 4,
         rows: 1,
         frames: 4,
-        scale: 1.18,
+        scale: 1.2,
       } as const;
     }
   }, [direction, state]);
