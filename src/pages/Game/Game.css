@@ -10,6 +10,18 @@
   color: #f8fafc;
 }
 
+.game-shell--leaving {
+  animation: game-leave 550ms ease-in forwards;
+}
+
+@keyframes game-leave {
+  to {
+    opacity: 0;
+    filter: brightness(1.8) blur(5px);
+    transform: scale(1.035);
+  }
+}
+
 .game-viewport {
   position: relative;
   width: min(100%, 800px);

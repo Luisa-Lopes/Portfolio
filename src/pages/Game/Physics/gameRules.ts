@@ -35,7 +35,15 @@ const maxPlatformGap = 115;
 const endGameParallax = 0.4;
 const maxPlatformsPerUpdate = 3;
 
-export const createGameRules = (onGameOver: (score: number) => void) => {
+interface GameRuleHandlers {
+  onDoorReached: () => void;
+  onGameOver: (score: number) => void;
+}
+
+export const createGameRules = ({
+  onDoorReached,
+  onGameOver,
+}: GameRuleHandlers) => {
   let isGameOver = false;
   let nextPlatformIndex = 4;
   let nextCoinIndex = 0;
@@ -102,7 +110,7 @@ export const createGameRules = (onGameOver: (score: number) => void) => {
     // ao alcançá-la no cenário final.
     if (Matter.Query.collides(player.body, [door.body]).length > 0) {
       isGameOver = true;
-      onGameOver(score.score);
+      onDoorReached();
       return entities;
     }
 

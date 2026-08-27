@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { PauseIcon } from "@heroicons/react/24/solid";
 import { GameEngine } from "react-game-engine";
+import { useNavigate } from "react-router-dom";
 import { Physics } from "./Physics/main";
 import Entities from "./entities";
 import { createMovement } from "./Physics/Movement";
@@ -76,10 +77,11 @@ const Game = () => {
   const [viewport, setViewport] = useState(getViewport);
 
   const [gameState, setGameState] = useState<
-    "start" | "playing" | "pause" | "gameOver"
+    "start" | "playing" | "pause" | "gameOver" | "transition"
   >("start");
   const [round, setRound] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
+  const navigate = useNavigate();
 
   const gameEngineRef = useRef<GameEngine | null>(null);
 
@@ -134,11 +136,24 @@ const Game = () => {
   const movement = useMemo(() => createMovement(keyboard), [keyboard]);
   const gameRules = useMemo(() => {
     void round;
-    return createGameRules((score: number) => {
-      setGameState("gameOver");
-      setScore(score);
+    return createGameRules({
+      onGameOver: (score: number) => {
+        setGameState("gameOver");
+        setScore(score);
+      },
+      onDoorReached: () => setGameState("transition"),
     });
   }, [round]);
+
+  useEffect(() => {
+    if (gameState !== "transition") return;
+
+    const timer = window.setTimeout(() => {
+      navigate("/?entrada=porta");
+    }, 550);
+
+    return () => window.clearTimeout(timer);
+  }, [gameState, navigate]);
 
   const handleStartGame = () => {
     setGameState("playing");
@@ -161,7 +176,9 @@ const Game = () => {
     return <MainStart onClickStart={handleStartGame} />;
 
   return (
-    <section className="game-shell">
+    <section
+      className={`game-shell${gameState === "transition" ? " game-shell--leaving" : ""}`}
+    >
       <div className="game-viewport">
         <GameEngine
           key={`${round}-${viewport.width}-${viewport.height}`}
@@ -172,7 +189,9 @@ const Game = () => {
           className="game-engine"
           systems={[movement, Physics, gameRules]}
         />
-        <GameControls setKey={setKey} onPause={pauseGame} />
+        {gameState !== "transition" && (
+          <GameControls setKey={setKey} onPause={pauseGame} />
+        )}
       </div>
 
       {gameState === "gameOver" && (
