@@ -76,9 +76,6 @@ main {
 }
 
 .hero-section {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-  gap: 48px;
   align-items: center;
   min-height: calc(100vh - 78px);
   padding: 64px 0;

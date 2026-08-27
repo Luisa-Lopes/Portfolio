@@ -12,7 +12,7 @@ import MainStart from "./Components/Start";
 import GameOver from "./Components/GameOver";
 import Pause from "./Components/Pause";
 
-const getViewport = () => ({
+export const getViewport = () => ({
   width: Math.min(window.innerWidth, 800),
   height: window.visualViewport?.height ?? window.innerHeight,
 });
