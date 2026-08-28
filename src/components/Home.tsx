@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import doorImage from "../assets/game/Door.png";
 import playerImage from "../assets/game/falling.png";
 import { getViewport } from "../pages/Game/Game";
 import "./Home.css";
+import { use } from "matter-js";
 
 const highlights = [
   "Engenharia de Redes - UnB",
@@ -12,18 +13,27 @@ const highlights = [
 
 interface IHome {
   show: boolean;
+  setShow: Dispatch<SetStateAction<boolean>>;
 }
 
-const Home = ({ show }: IHome) => {
+const Home = ({ show, setShow }: IHome) => {
   const texto = "Ana Luísa S. Lopes";
   const velocidade = 100;
 
   const [textoAtual, setTextoAtual] = useState("");
   const [index, setIndex] = useState(0);
+  const [portalClosing, setPortalClosing] = useState(false);
+  const [characterClosing, setCharacterClosing] = useState(false);
+  const [containerClosing, setContainerClosing] = useState(false);
+  const [showCharacterImage, setShowCharacterImage] = useState(false);
 
-  const [viewport, setViewport] = useState(getViewport);
+  const [viewport] = useState(getViewport);
   const windowWidth = viewport.width;
   const windowHeight = viewport.height;
+
+  useEffect(() => {
+    setShowCharacterImage(characterClosing);
+  }, [characterClosing]);
 
   useEffect(() => {
     if (index < texto.length) {
@@ -36,60 +46,114 @@ const Home = ({ show }: IHome) => {
     }
   }, [index, texto, velocidade]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // 10s: portal começa a desaparecer
+      setPortalClosing(true);
+
+      setTimeout(() => {
+        // 10.8s: personagem começa a desaparecer
+        setCharacterClosing(true);
+
+        setTimeout(() => {
+          // 11.6s: container começa a fechar
+          setContainerClosing(true);
+          //setShow(false);
+
+          setTimeout(() => {
+            // 11.6s: container começa a fechar
+            setShow(false);
+          }, 900);
+        }, 800);
+      }, 800);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="hero-section flex flex-col" id="home">
       {show && (
-        <div className="flex w-full relative showContainer">
-          <section
-            style={{
-              position: "absolute",
-              left: "10%",
-              top: "0",
-              width: windowWidth * 0.32,
-              height: windowHeight * 0.4,
-            }}
-            className="portalOpen"
-          >
-            <div className="relative w-full h-full">
-              {/* Moldura do portal */}
-              <div
-                style={{
-                  position: "absolute",
-                  display: "flex",
-                  backgroundImage: `url(${doorImage})`,
-                  backgroundPosition: "center 64%",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "100% auto",
-                  imageRendering: "pixelated",
-                  overflow: "hidden",
-                  inset: 0,
-                  zIndex: 110,
-                }}
-              />
+        <div
+          className={`flex w-full showContainer ${containerClosing ? "closing" : ""}`}
+        >
+          <div className="flex w-1/2 md:w-1/4 h-full relative">
+            <section
+              style={{
+                position: "absolute",
+                left: "10%",
+                top: "0",
+                width: windowWidth * 0.32,
+                height: windowHeight * 0.4,
+              }}
+              className={`portalHomeOpen ${portalClosing ? "portalClosing" : ""}`}
+            >
+              <div className="relative w-full h-full">
+                {/* Moldura do portal */}
+                <div
+                  style={{
+                    position: "absolute",
+                    display: "flex",
+                    backgroundImage: `url(${doorImage})`,
+                    backgroundPosition: "center 64%",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "100% auto",
+                    imageRendering: "pixelated",
+                    overflow: "hidden",
+                    inset: 0,
+                    zIndex: 110,
+                  }}
+                />
 
-              {/* Efeito do portal */}
-              <div className="portal">
-                <div className="portal-glow" />
-                <div className="portal-ring" />
-                <div className="portal-core" />
+                {/* Efeito do portal */}
+                <div className="portalHome">
+                  <div className="portalHome-glow" />
+                  <div className="portalHome-ring" />
+                  <div className="portalHome-core" />
+                </div>
               </div>
+            </section>
+            {/* Personagem */}
+            <div
+              className={`landing-character ${characterClosing ? "characterClosing" : ""}`}
+            >
+              <div
+                className="landing-character-sprite "
+                role="img"
+                aria-label="Personagem caindo"
+                style={{ backgroundImage: `url(${playerImage})` }}
+              />
             </div>
-          </section>
-
-          {/* Personagem */}
-          <div className="landing-character">
-            <img
-              src={playerImage}
-              alt="Personagem"
-              className="landing-character-image"
-            />
           </div>
         </div>
       )}
 
-      <section className="flex flex-col md:flex-row">
-        <div className="hero-copy ">
-          <h1>{textoAtual}</h1>
+      <section className="flex w-full flex-col md:flex-row">
+        <div className="hero-copy md:w-1/2">
+          <div className="flex items-center w-full">
+            <section className="relative flex w-1/2 h-50 ">
+              {showCharacterImage && (
+                <div
+                  className="absolute"
+                  style={{
+                    width: "135px",
+                    height: "180px",
+                    left: "63%",
+                    bottom: "0",
+                    transform: "translateX(-50%)",
+                    backgroundPosition: "-405px -180px",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "540px 360px",
+                    imageRendering: "pixelated",
+                    backgroundImage: `url(${playerImage})`,
+                  }}
+                />
+              )}
+            </section>
+
+            <h1 className="w-1/2">{textoAtual}</h1>
+          </div>
+
           <p className="eyebrow">
             Engenharia de Redes de Comunicação | Front-End
           </p>
@@ -123,7 +187,7 @@ const Home = ({ show }: IHome) => {
             <a href="mailto:aninhaslopess@gmail.com">Email</a>
           </div>
         </div>
-        <aside className="hero-panel" aria-label="Resumo de tecnologias">
+        <aside className="hero-panel w-1/2" aria-label="Resumo de tecnologias">
           <div className="status-card">
             <span>Stack principal</span>
             <strong>React JS + TypeScript</strong>

@@ -22,7 +22,7 @@ function Portfolio() {
       {!show && <NavBar />}
 
       <main>
-        <Home show={show} />
+        <Home show={show} setShow={setShow} />
 
         <About />
 
