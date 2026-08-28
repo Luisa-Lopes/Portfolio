@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Start.css";
 import "./loading.css";
 import blueCloud from "../../../../assets/game/background/nuvemAzul.png";
@@ -23,6 +23,12 @@ const clouds = [
 const MainStart = ({ onClickStart }: IStart) => {
   const [pageState, setPageState] = useState("start");
   const [transition, setTransition] = useState("fade-in");
+
+  useEffect(() => {
+    document.body.classList.add("game-start-active");
+
+    return () => document.body.classList.remove("game-start-active");
+  }, []);
 
   const changePage = (nextPage: string) => {
     setTransition("fade-out");

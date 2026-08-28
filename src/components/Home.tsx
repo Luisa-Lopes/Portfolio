@@ -32,7 +32,11 @@ const Home = ({ show, setShow }: IHome) => {
   const windowHeight = viewport.height;
 
   useEffect(() => {
-    setShowCharacterImage(characterClosing);
+    if (!show) {
+      setShowCharacterImage(true);
+    } else {
+      setShowCharacterImage(characterClosing);
+    }
   }, [characterClosing]);
 
   useEffect(() => {
@@ -47,29 +51,30 @@ const Home = ({ show, setShow }: IHome) => {
   }, [index, texto, velocidade]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      // 10s: portal começa a desaparecer
-      setPortalClosing(true);
-
-      setTimeout(() => {
-        // 10.8s: personagem começa a desaparecer
-        setCharacterClosing(true);
+    if (show == true) {
+      const timer = setTimeout(() => {
+        // 10s: portal começa a desaparecer
+        setPortalClosing(true);
 
         setTimeout(() => {
-          // 11.6s: container começa a fechar
-          setContainerClosing(true);
-          //setShow(false);
+          // 10.8s: personagem começa a desaparecer
+          setCharacterClosing(true);
 
           setTimeout(() => {
             // 11.6s: container começa a fechar
-            setShow(false);
-          }, 900);
-        }, 800);
-      }, 800);
-    }, 10000);
+            setContainerClosing(true);
+            //setShow(false);
 
-    return () => clearTimeout(timer);
-  }, []);
+            setTimeout(() => {
+              // 11.6s: container começa a fechar
+              setShow(false);
+            }, 900);
+          }, 800);
+        }, 800);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [show]);
 
   return (
     <section className="hero-section flex flex-col" id="home">

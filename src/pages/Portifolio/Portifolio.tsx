@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import About from "../../components/About";
 import Contact from "../../components/Contact";
 import Experience from "../../components/Experience";
@@ -9,12 +9,15 @@ import NavBar from "../../layouts/navBar";
 import { useEffect, useState } from "react";
 
 function Portfolio() {
-  const { entrada } = useParams();
+  const [searchParams] = useSearchParams();
+  const entrada = searchParams.get("entrada");
 
   const [show, setShow] = useState<boolean>(false);
 
   useEffect(() => {
-    setShow(true);
+    if (entrada === "porta") {
+      setShow(true);
+    }
   }, [entrada]);
 
   return (
