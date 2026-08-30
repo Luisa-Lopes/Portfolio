@@ -6,6 +6,7 @@ import darkPurpleCloud from "../../../../assets/game/background/roxoEscuro.png";
 import Loading from "./Component/loading";
 import Loaded from "./Component/loaded";
 import Start from "./Component/start";
+import { soundManager } from "../../audio/SoundManager";
 
 interface IStart {
   onClickStart: () => void;
@@ -40,6 +41,7 @@ const MainStart = ({ onClickStart }: IStart) => {
   };
 
   const loadInformation = () => {
+    soundManager.playMusic();
     changePage("loading");
 
     setTimeout(() => {

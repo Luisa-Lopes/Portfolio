@@ -1,4 +1,4 @@
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import About from "../../components/About";
 import Contact from "../../components/Contact";
 import Experience from "../../components/Experience";

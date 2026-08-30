@@ -3,7 +3,6 @@ import doorImage from "../assets/game/Door.png";
 import playerImage from "../assets/game/falling.png";
 import { getViewport } from "../pages/Game/Game";
 import "./Home.css";
-import { use } from "matter-js";
 
 const highlights = [
   "Engenharia de Redes - UnB",
@@ -23,21 +22,19 @@ const Home = ({ show, setShow }: IHome) => {
   const [textoAtual, setTextoAtual] = useState("");
   const [index, setIndex] = useState(0);
   const [portalClosing, setPortalClosing] = useState(false);
-  const [characterClosing, setCharacterClosing] = useState(false);
-  const [containerClosing, setContainerClosing] = useState(false);
-  const [showCharacterImage, setShowCharacterImage] = useState(false);
+  const [characterClosing, setCharacterClosing] = useState<boolean>(false);
+  const [containerClosing, setContainerClosing] = useState<boolean>(false);
+  const [showCharacterImage, setShowCharacterImage] = useState<boolean>(false);
 
   const [viewport] = useState(getViewport);
   const windowWidth = viewport.width;
   const windowHeight = viewport.height;
 
+  console.log(show);
+
   useEffect(() => {
-    if (!show) {
-      setShowCharacterImage(true);
-    } else {
-      setShowCharacterImage(characterClosing);
-    }
-  }, [characterClosing]);
+    setShowCharacterImage(!show);
+  }, [show]);
 
   useEffect(() => {
     if (index < texto.length) {
@@ -58,12 +55,13 @@ const Home = ({ show, setShow }: IHome) => {
 
         setTimeout(() => {
           // 10.8s: personagem começa a desaparecer
+
           setCharacterClosing(true);
+          setShow(false);
 
           setTimeout(() => {
             // 11.6s: container começa a fechar
             setContainerClosing(true);
-            //setShow(false);
 
             setTimeout(() => {
               // 11.6s: container começa a fechar
