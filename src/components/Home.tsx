@@ -30,12 +30,6 @@ const Home = ({ show, setShow }: IHome) => {
   const windowWidth = viewport.width;
   const windowHeight = viewport.height;
 
-  console.log(show);
-
-  useEffect(() => {
-    setShowCharacterImage(!show);
-  }, [show]);
-
   useEffect(() => {
     if (index < texto.length) {
       const timer = setTimeout(() => {
@@ -48,16 +42,16 @@ const Home = ({ show, setShow }: IHome) => {
   }, [index, texto, velocidade]);
 
   useEffect(() => {
-    if (show == true) {
+    if (show) {
+      setShowCharacterImage(false);
       const timer = setTimeout(() => {
         // 10s: portal começa a desaparecer
         setPortalClosing(true);
 
         setTimeout(() => {
           // 10.8s: personagem começa a desaparecer
-
+          setShowCharacterImage(true);
           setCharacterClosing(true);
-          setShow(false);
 
           setTimeout(() => {
             // 11.6s: container começa a fechar
@@ -66,11 +60,13 @@ const Home = ({ show, setShow }: IHome) => {
             setTimeout(() => {
               // 11.6s: container começa a fechar
               setShow(false);
-            }, 900);
+            }, 1000);
           }, 800);
         }, 800);
-      }, 10000);
+      }, 9000);
       return () => clearTimeout(timer);
+    } else {
+      setShowCharacterImage(true);
     }
   }, [show]);
 
@@ -80,16 +76,9 @@ const Home = ({ show, setShow }: IHome) => {
         <div
           className={`flex w-full showContainer ${containerClosing ? "closing" : ""}`}
         >
-          <div className="flex w-1/2 md:w-1/4 h-full relative">
+          <div className="flex w-1/2 md:w-1/4 h-full relative ">
             <section
-              style={{
-                position: "absolute",
-                left: "10%",
-                top: "0",
-                width: windowWidth * 0.32,
-                height: windowHeight * 0.4,
-              }}
-              className={`portalHomeOpen ${portalClosing ? "portalClosing" : ""}`}
+              className={`w-[13em] h-[30em]  portalHomeOpen ${portalClosing ? "portalClosing" : ""}`}
             >
               <div className="relative w-full h-full">
                 {/* Moldura do portal */}

@@ -17,7 +17,10 @@
 
 /* Portal começa invisível */
 .portalHomeOpen {
+  position: absolute;
   opacity: 0;
+  left: 25%;
+  top: -50%;
   transform: scale(0.6);
   transform-origin: center center;
   animation: aparecerportalHome 0.8s ease-out forwards;
@@ -196,9 +199,9 @@
 .portalHome {
   position: absolute;
   left: 50%;
-  top: 48%;
+  top: 55%;
   width: 50%;
-  height: 60%;
+  height: 45%;
   transform: translate(-50%, -50%);
   border-radius: 38% 38% 0% 0%;
   overflow: hidden;
@@ -234,17 +237,18 @@
   animation: portalHomeRotate 3s linear infinite;
   filter: blur(2px);
 }
+
 @keyframes portalHomeRotate {
   from {
-    transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1.3);
   }
 
   50% {
-    transform: rotate(180deg) scale(1.08);
+    transform: rotate(180deg) scale(2);
   }
 
   to {
-    transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1.3);
   }
 }
 
