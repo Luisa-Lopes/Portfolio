@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Start.css";
 import "./loading.css";
 import blueCloud from "../../../../assets/game/background/nuvemAzul.png";
@@ -6,6 +6,7 @@ import darkPurpleCloud from "../../../../assets/game/background/roxoEscuro.png";
 import Loading from "./Component/loading";
 import Loaded from "./Component/loaded";
 import Start from "./Component/start";
+import { soundManager } from "../../audio/SoundManager";
 
 interface IStart {
   onClickStart: () => void;
@@ -24,6 +25,12 @@ const MainStart = ({ onClickStart }: IStart) => {
   const [pageState, setPageState] = useState("start");
   const [transition, setTransition] = useState("fade-in");
 
+  useEffect(() => {
+    document.body.classList.add("game-start-active");
+
+    return () => document.body.classList.remove("game-start-active");
+  }, []);
+
   const changePage = (nextPage: string) => {
     setTransition("fade-out");
 
@@ -34,6 +41,7 @@ const MainStart = ({ onClickStart }: IStart) => {
   };
 
   const loadInformation = () => {
+    soundManager.playMusic();
     changePage("loading");
 
     setTimeout(() => {

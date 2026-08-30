@@ -50,6 +50,12 @@
   box-shadow: 0 10px 24px rgba(245, 158, 11, 0.3);
 }
 
+.game-pause-action--muted {
+  border-color: rgba(248, 113, 113, 0.55);
+  background: rgba(127, 29, 29, 0.32);
+  color: #fecaca;
+}
+
 .game-pause-action:hover {
   transform: translateY(-3px);
   border-color: rgba(125, 211, 252, 0.8);

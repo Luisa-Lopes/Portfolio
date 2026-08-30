@@ -1,4 +1,10 @@
+.game-start-active {
+  overflow: hidden;
+}
+
 .game-start-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
   background:
     radial-gradient(
       circle at top left,

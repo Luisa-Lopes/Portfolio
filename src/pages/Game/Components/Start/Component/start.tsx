@@ -28,7 +28,7 @@ const Start = ({ clouds, transition, loadInformation }: IStart) => {
 
   return (
     <section
-      className={`game-start-shell game-start-transition ${transition} w-full h-full flex items-center md:overflow-hidden overflow-auto p-5`}
+      className={`game-start-shell game-start-transition ${transition} w-full h-full flex items-center overflow-hidden p-5`}
     >
       <div className="game-start-glow" />
 
@@ -48,7 +48,7 @@ const Start = ({ clouds, transition, loadInformation }: IStart) => {
             <span className="typing-cursor" />
           </div>
 
-          <p className="game-description game-copy__description flex flex-col z-50 ">
+          <div className="game-description game-copy__description flex flex-col z-50 ">
             <div className="font-bold z-30">
               Uma aventura pelo meu portfólio.
             </div>
@@ -56,7 +56,7 @@ const Start = ({ clouds, transition, loadInformation }: IStart) => {
               Supere obstáculos, explore minhas habilidades e desbloqueie cada
               etapa da minha trajetória como desenvolvedora.
             </div>
-          </p>
+          </div>
 
           <div
             className="game-badges game-copy__badges flex"

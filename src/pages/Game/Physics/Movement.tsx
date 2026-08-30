@@ -1,5 +1,6 @@
 import Matter from "matter-js";
 import type { PlayerProps } from "../entities/Player";
+import { soundManager } from "../audio/SoundManager";
 
 interface PhysicsProps {
   engine: Matter.Engine;
@@ -24,6 +25,7 @@ export const createMovement = (keyboard: KeyboardState) => {
   let jumpWasPressed = false;
   let animationElapsed = 0;
   let groundedGracePeriod = 0;
+  let walkSoundElapsed = 0;
 
   return (entities: Entities, { time }: SystemArgs) => {
     const player = entities.player;
@@ -76,7 +78,6 @@ export const createMovement = (keyboard: KeyboardState) => {
       );
     });
     const isOnPlatform = hasPlatformCollision || isNearPlatformTop;
-
     groundedGracePeriod = isOnPlatform
       ? 120
       : Math.max(0, groundedGracePeriod - time.delta);
@@ -130,6 +131,14 @@ export const createMovement = (keyboard: KeyboardState) => {
       player.state = "idle";
       player.frame = 0;
       animationElapsed = 0;
+    }
+
+    const isWalking = isOnPlatform && Math.abs(horizontalVelocity) > 0.2;
+    walkSoundElapsed = isWalking ? walkSoundElapsed + time.delta : 0;
+
+    if (isWalking && walkSoundElapsed >= 350) {
+      soundManager.play("walking", 0.12);
+      walkSoundElapsed = 0;
     }
 
     platforms.forEach((platform) => {

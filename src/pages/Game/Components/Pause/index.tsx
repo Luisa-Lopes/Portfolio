@@ -3,9 +3,13 @@ import {
   HomeIcon,
   PauseIcon,
   PlayIcon,
+  SpeakerWaveIcon,
+  SpeakerXMarkIcon,
 } from "@heroicons/react/24/solid";
+import { useState } from "react";
 import "../GameOver/style.css";
 import "./style.css";
+import { soundManager } from "../../audio/SoundManager";
 
 interface IPause {
   continueGame: () => void;
@@ -14,6 +18,13 @@ interface IPause {
 }
 
 const Pause = ({ continueGame, restartGame, returnToStart }: IPause) => {
+  const [isMusicPlaying, setIsMusicPlaying] = useState(
+    soundManager.isMusicPlaying,
+  );
+  const [areEffectsEnabled, setAreEffectsEnabled] = useState(
+    soundManager.areEffectsEnabled,
+  );
+
   return (
     <section className="game-over-overlay" aria-labelledby="game-pause-title">
       <div className="game-over-panel game-pause-panel">
@@ -47,6 +58,40 @@ const Pause = ({ continueGame, restartGame, returnToStart }: IPause) => {
             onClick={restartGame}
           >
             <ArrowPathIcon aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className={`game-pause-action${!isMusicPlaying ? " game-pause-action--muted" : ""}`}
+            aria-label={isMusicPlaying ? "Parar música" : "Tocar música"}
+            aria-pressed={isMusicPlaying}
+            title={isMusicPlaying ? "Parar música" : "Tocar música"}
+            onClick={() => setIsMusicPlaying(soundManager.toggleMusic())}
+          >
+            {isMusicPlaying ? (
+              <SpeakerWaveIcon aria-hidden="true" />
+            ) : (
+              <SpeakerXMarkIcon aria-hidden="true" />
+            )}
+          </button>
+          <button
+            type="button"
+            className={`game-pause-action${!areEffectsEnabled ? " game-pause-action--muted" : ""}`}
+            aria-label={
+              areEffectsEnabled ? "Parar efeitos sonoros" : "Ativar efeitos sonoros"
+            }
+            aria-pressed={areEffectsEnabled}
+            title={
+              areEffectsEnabled ? "Parar efeitos sonoros" : "Ativar efeitos sonoros"
+            }
+            onClick={() =>
+              setAreEffectsEnabled(soundManager.toggleEffects())
+            }
+          >
+            {areEffectsEnabled ? (
+              <SpeakerWaveIcon aria-hidden="true" />
+            ) : (
+              <SpeakerXMarkIcon aria-hidden="true" />
+            )}
           </button>
           <button
             type="button"

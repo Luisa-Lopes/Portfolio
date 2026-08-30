@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  cloneElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactElement,
+} from "react";
 import { PauseIcon } from "@heroicons/react/24/solid";
 import { GameEngine } from "react-game-engine";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +18,9 @@ import "./Game.css";
 import MainStart from "./Components/Start";
 import GameOver from "./Components/GameOver";
 import Pause from "./Components/Pause";
+import { soundManager } from "./audio/SoundManager";
 
-const getViewport = () => ({
+export const getViewport = () => ({
   width: Math.min(window.innerWidth, 800),
   height: window.visualViewport?.height ?? window.innerHeight,
 });
@@ -21,6 +29,40 @@ interface GameControlsProps {
   setKey: (code: string, isPressed: boolean) => void;
   onPause: () => void;
 }
+
+interface RenderableEntity {
+  renderer?: ReactElement<Record<string, unknown>>;
+  body?: {
+    bounds: {
+      min: { y: number };
+      max: { y: number };
+    };
+  };
+  [key: string]: unknown;
+}
+
+const gameRenderer = (
+  entities: Record<string, RenderableEntity> | null,
+) => {
+  if (!entities) return null;
+
+  const viewportHeight = (entities.viewport as { height: number }).height;
+  const renderMargin = viewportHeight * 0.25;
+
+  return Object.entries(entities).flatMap(([key, entity]) => {
+    if (!entity.renderer) return [];
+
+    const { body } = entity;
+    const isOutsideViewport =
+      body &&
+      (body.bounds.max.y < -renderMargin ||
+        body.bounds.min.y > viewportHeight + renderMargin);
+
+    if (isOutsideViewport) return [];
+
+    return [cloneElement(entity.renderer, { key, ...entity })];
+  });
+};
 
 const GameControls = ({ setKey, onPause }: GameControlsProps) => {
   const controlProps = (code: string) => ({
@@ -86,6 +128,10 @@ const Game = () => {
   const gameEngineRef = useRef<GameEngine | null>(null);
 
   useEffect(() => {
+    return () => soundManager.stopMusic();
+  }, []);
+
+  useEffect(() => {
     const updateViewport = () => setViewport(getViewport());
     const visualViewport = window.visualViewport;
 
@@ -141,7 +187,10 @@ const Game = () => {
         setGameState("gameOver");
         setScore(score);
       },
-      onDoorReached: () => setGameState("transition"),
+      onDoorReached: () => {
+        soundManager.play("portalOpen", 0.35);
+        setGameState("transition");
+      },
     });
   }, [round]);
 
@@ -188,6 +237,7 @@ const Game = () => {
           style={{ width: "100%", height: "100%" }}
           className="game-engine"
           systems={[movement, Physics, gameRules]}
+          renderer={gameRenderer}
         />
         {gameState !== "transition" && (
           <GameControls setKey={setKey} onPause={pauseGame} />
