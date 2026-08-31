@@ -1,9 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import Matter from "matter-js";
-import walkRight from "../../../../assets/game/WalkRight.png";
-import jumpRight from "../../../../assets/game/jumpRight.png";
-import jumpLeft from "../../../../assets/game/jumpLeft.png";
+import walking from "../../../../assets/game/player/WalkRight.png";
+import jumping from "../../../../assets/game/player/jumpRight.png";
 import { useMemo } from "react";
 
 export interface PlayerProps {
@@ -38,7 +37,7 @@ const Player = ({ body, state, direction, frame }: PlayerProps) => {
   const spriteData = useMemo(() => {
     if (state === "idle") {
       return {
-        src: walkRight,
+        src: walking,
         columns: 4,
         rows: 2,
         frames: 1,
@@ -46,7 +45,7 @@ const Player = ({ body, state, direction, frame }: PlayerProps) => {
       } as const;
     } else if (state === "walking") {
       return {
-        src: walkRight,
+        src: walking,
         columns: 4,
         rows: 2,
         frames: 8,
@@ -54,7 +53,7 @@ const Player = ({ body, state, direction, frame }: PlayerProps) => {
       } as const;
     } else {
       return {
-        src: direction === "left" ? jumpLeft : jumpRight,
+        src: jumping,
         columns: 4,
         rows: 1,
         frames: 4,
@@ -84,9 +83,7 @@ const Player = ({ body, state, direction, frame }: PlayerProps) => {
         width: DISPLAY_WIDTH,
         height: DISPLAY_HEIGHT,
         transform:
-          state !== "jumping" && direction === "left"
-            ? "rotateY(180deg)"
-            : "none",
+          state !== "idle" && direction === "left" ? "rotateY(180deg)" : "none",
         backgroundImage: `url(${spriteData.src})`,
         backgroundSize: `${spriteData.columns * frameWidth}px ${spriteData.rows * frameHeight}px`,
         backgroundRepeat: "no-repeat",

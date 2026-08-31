@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import Matter from "matter-js";
-import BackgroundImage from "../../../../assets/game/background/background.png";
+import BackgroundImage from "@/assets/game/background/background.png";
 
 interface BackgroundProps {
   body: Matter.Body;

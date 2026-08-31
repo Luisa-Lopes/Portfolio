@@ -1,6 +1,7 @@
 import Matter from "matter-js";
 import Platform from "../entities/Platform";
 import Coin from "../entities/Coin";
+import { soundManager } from "../audio/SoundManager";
 
 interface BodyEntity {
   body: Matter.Body;
@@ -78,6 +79,7 @@ export const createGameRules = ({
         Matter.World.remove(entities.physics.world, coin.body);
 
         score.score += 10;
+        soundManager.play("receivedCoin", 0.2);
         delete entities[coinKey];
       }
     });

@@ -1,13 +1,13 @@
-import blueCloud from "../../../../assets/game/background/nuvemAzul.png";
-import purpleBlueCloud from "../../../../assets/game/background/nuvemAzulRoxo.png";
-import darkPurpleCloud from "../../../../assets/game/background/roxoEscuro.png";
-import server from "../../../../assets/game/background/servidor.png";
-import mural from "../../../../assets/game/background/mural3.png";
-import connection from "../../../../assets/game/background/conexao.png";
-import gear from "../../../../assets/game/background/engrenagem.png";
+import blueCloud from "@/assets/game/background/nuvemAzul.png";
+import purpleBlueCloud from "@/assets/game/background/nuvemAzulRoxo.png";
+import darkPurpleCloud from "@/assets/game/background/roxoEscuro.png";
+import server from "@/assets/game/background/servidor.png";
+import mural from "@/assets/game/background/mural3.png";
+import connection from "@/assets/game/background/conexao.png";
+import gear from "@/assets/game/background/engrenagem.png";
 import Component from "../../entities/Component";
-import plataforma1 from "../../../../assets/game/background/plataforma1.png";
-import plataforma2 from "../../../../assets/game/background/plataforma2.png";
+import plataforma1 from "@/assets/game/background/plataforma1.png";
+import plataforma2 from "@/assets/game/background/plataforma2.png";
 
 interface ComponentConfig {
   x: number;

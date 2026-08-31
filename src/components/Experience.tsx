@@ -61,13 +61,7 @@ const Experience = () => {
       <div className="experience-grid">
         {experiences.map((experience) => (
           <article
-            className="flex flex-col gap-5 p-3 "
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.78)",
-              border: "1px solid rgba(18, 49, 46, 0.1)",
-              borderRadius: 8,
-              boxShadow: "0 22px 70px rgba(26, 69, 65, 0.1)",
-            }}
+            className="experience-card flex flex-col gap-5 p-3"
             key={`${experience.role}-${experience.description}`}
           >
             <h3>{experience.role}</h3>

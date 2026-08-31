@@ -1,16 +1,16 @@
 import Matter from "matter-js";
-import cCoin from "../../../../assets/game/coins/cCoin.png";
-import cssCoin from "../../../../assets/game/coins/cssCoin.png";
-import gitCoin from "../../../../assets/game/coins/gitCoin.png";
-import htmlCoin from "../../../../assets/game/coins/htmlCoin.png";
-import jsCoin from "../../../../assets/game/coins/jsCoin.png";
-import netCoin from "../../../../assets/game/coins/netCoin.png";
-import nextCoin from "../../../../assets/game/coins/nextCoin.png";
-import nodeCoin from "../../../../assets/game/coins/nodeCoin.png";
-import postCoin from "../../../../assets/game/coins/postgresCoin.png";
-import reactCoin from "../../../../assets/game/coins/reactCoin.png";
-import tailCoin from "../../../../assets/game/coins/taillwindCoin.png";
-import tsCoin from "../../../../assets/game/coins/tsCoin.png";
+import cCoin from "@/assets/game/coins/cCoin.png";
+import cssCoin from "@/assets/game/coins/cssCoin.png";
+import gitCoin from "@/assets/game/coins/gitCoin.png";
+import htmlCoin from "@/assets/game/coins/htmlCoin.png";
+import jsCoin from "@/assets/game/coins/jsCoin.png";
+import netCoin from "@/assets/game/coins/netCoin.png";
+import nextCoin from "@/assets/game/coins/nextCoin.png";
+import nodeCoin from "@/assets/game/coins/nodeCoin.png";
+import postCoin from "@/assets/game/coins/postgresCoin.png";
+import reactCoin from "@/assets/game/coins/reactCoin.png";
+import tailCoin from "@/assets/game/coins/taillwindCoin.png";
+import tsCoin from "@/assets/game/coins/tsCoin.png";
 import "./style.css";
 
 export const coins = [

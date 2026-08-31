@@ -1,10 +1,10 @@
 import Component from "../../entities/Component";
-import CloudImage from "../../../../assets/game/background/nuvem.png";
-import monitorImage from "../../../../assets/game/background/monitor.png";
-import htmlImage from "../../../../assets/game/background/arquivoHtml.png";
-import cssImage from "../../../../assets/game/background/arquivoCss.png";
-import muralImage from "../../../../assets/game/background/mural.png";
-import mural2Image from "../../../../assets/game/background/mural2.png";
+import CloudImage from "@/assets/game/background/nuvem.png";
+import monitorImage from "@/assets/game/background/monitor.png";
+import htmlImage from "@/assets/game/background/arquivoHtml.png";
+import cssImage from "@/assets/game/background/arquivoCss.png";
+import muralImage from "@/assets/game/background/mural.png";
+import mural2Image from "@/assets/game/background/mural2.png";
 
 interface ComponentConfig {
   x: number;

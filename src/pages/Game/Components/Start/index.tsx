@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./Start.css";
 import "./loading.css";
-import blueCloud from "../../../../assets/game/background/nuvemAzul.png";
-import darkPurpleCloud from "../../../../assets/game/background/roxoEscuro.png";
+import blueCloud from "@/assets/game/background/nuvemAzul.png";
+import darkPurpleCloud from "@/assets/game/background/roxoEscuro.png";
 import Loading from "./Component/loading";
 import Loaded from "./Component/loaded";
 import Start from "./Component/start";

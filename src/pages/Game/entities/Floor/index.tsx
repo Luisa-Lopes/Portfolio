@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import Matter from "matter-js";
-import floor from "../../../../assets/game/floor.png";
+import floor from "@/assets/game/floor.png";
 
 interface FloorProps {
   body: Matter.Body;

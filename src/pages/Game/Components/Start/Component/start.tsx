@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import player from "../../../../../assets/game/idleLeft.png";
+import player from "@/assets/game/player/idleLeft.png";
 
 interface IStart {
   clouds: { src: string; className: string }[];

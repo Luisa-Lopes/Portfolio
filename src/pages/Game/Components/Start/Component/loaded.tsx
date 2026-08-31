@@ -1,7 +1,7 @@
-import cCoin from "../../../../../assets/game/coins/cCoin.png";
-import gitCoin from "../../../../../assets/game/coins/gitCoin.png";
-import postgresCoin from "../../../../../assets/game/coins/postgresCoin.png";
-import tsCoin from "../../../../../assets/game/coins/tsCoin.png";
+import cCoin from "@/assets/game/coins/cCoin.png";
+import gitCoin from "@/assets/game/coins/gitCoin.png";
+import postgresCoin from "@/assets/game/coins/postgresCoin.png";
+import tsCoin from "@/assets/game/coins/tsCoin.png";
 
 interface ILoaded {
   transition: string;

@@ -1,5 +1,5 @@
 import Matter from "matter-js";
-import DoorImage from "../../../../assets/game/Door.png";
+import DoorImage from "@/assets/game/Door.png";
 import "./style.css";
 
 interface DoorProps {
@@ -54,7 +54,13 @@ const Door = ({ body }: DoorProps) => {
   );
 };
 
-export default ({ world, position, size, label, parallax }: CreateDoorProps) => {
+export default ({
+  world,
+  position,
+  size,
+  label,
+  parallax,
+}: CreateDoorProps) => {
   const body = Matter.Bodies.rectangle(
     position.x,
     position.y,

@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import Matter from "matter-js";
-import defaultPlatform from "../../../../assets/game/floor.png";
+import defaultPlatform from "@/assets/game/floor.png";
 
 interface PlatformProps {
   body: Matter.Body;

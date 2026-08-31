@@ -1,12 +1,14 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import { Link } from "react-router-dom";
 import doorImage from "../assets/game/Door.png";
-import playerImage from "../assets/game/falling.png";
-import { getViewport } from "../pages/Game/Game";
+import playerImage from "@/assets/game/player/falling.png";
 import "./Home.css";
 
 const highlights = [
   "Engenharia de Redes - UnB",
   "Front-end com React e TypeScript",
+  "Back-end .Net",
+  "PostgreSQL",
   "Redes",
 ];
 
@@ -25,10 +27,6 @@ const Home = ({ show, setShow }: IHome) => {
   const [characterClosing, setCharacterClosing] = useState<boolean>(false);
   const [containerClosing, setContainerClosing] = useState<boolean>(false);
   const [showCharacterImage, setShowCharacterImage] = useState<boolean>(false);
-
-  const [viewport] = useState(getViewport);
-  const windowWidth = viewport.width;
-  const windowHeight = viewport.height;
 
   useEffect(() => {
     if (index < texto.length) {
@@ -156,6 +154,9 @@ const Home = ({ show, setShow }: IHome) => {
             técnico.
           </p>
           <div className="hero-actions">
+            <Link className="game-action" to="/game">
+              Jogar agora <span aria-hidden="true">→</span>
+            </Link>
             <a className="primary-action" href="#projetos">
               Ver projetos
             </a>
@@ -179,7 +180,10 @@ const Home = ({ show, setShow }: IHome) => {
             <a href="mailto:aninhaslopess@gmail.com">Email</a>
           </div>
         </div>
-        <aside className="hero-panel w-1/2" aria-label="Resumo de tecnologias">
+        <aside
+          className="hero-panel w-full md:w-1/2"
+          aria-label="Resumo de tecnologias"
+        >
           <div className="status-card">
             <span>Stack principal</span>
             <strong>React JS + TypeScript</strong>

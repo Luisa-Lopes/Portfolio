@@ -1,8 +1,8 @@
 import Panels from "../../entities/Panels";
-import prototipo from "../../../../assets/prototipoCut.png";
-import braco from "../../../../assets/braco.png";
+import prototipo from "@/assets/prototipoCut.png";
+import braco from "@/assets/braco.png";
 import Component from "../../entities/Component";
-import CloudImage from "../../../../assets/game/background/nuvem.png";
+import CloudImage from "@/assets/game/background/nuvem.png";
 
 interface IProjects {
   windowWidth: number;

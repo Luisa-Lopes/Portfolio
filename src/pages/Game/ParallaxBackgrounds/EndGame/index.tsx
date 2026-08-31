@@ -1,9 +1,9 @@
 import type Matter from "matter-js";
 import Door from "../../entities/Door";
 import Platform from "../../entities/Platform";
-import PlatformImage from "../../../../assets/game/plataforma.png";
+import PlatformImage from "@/assets/game/plataforma.png";
 import Component from "../../entities/Component";
-import Saudacao from "../../../../assets/game/saudacao.png";
+import Saudacao from "@/assets/game/saudacao.png";
 
 interface IProjects {
   windowWidth: number;

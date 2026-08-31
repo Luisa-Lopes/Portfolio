@@ -1,10 +1,12 @@
-import music from "../../../assets/game/sounds/at_the_end_of_hope_loop.wav";
-import walking from "../../../assets/game/sounds/walking.mp3";
-import portalOpen from "../../../assets/game/sounds/portalOpen.mp3";
+import music from "@/assets/game/sounds/at_the_end_of_hope_loop.wav";
+import walking from "@/assets/game/sounds/walking.mp3";
+import portalOpen from "@/assets/game/sounds/portalOpen.mp3";
+import receivedCoin from "@/assets/game/sounds/coinReceived.mp3";
 
 const sounds = {
   walking,
   portalOpen,
+  receivedCoin,
 };
 
 class SoundManager {

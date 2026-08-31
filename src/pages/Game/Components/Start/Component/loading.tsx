@@ -1,7 +1,7 @@
-import keyA from "../../../../../assets/game/keyboard/a.png";
-import keyW from "../../../../../assets/game/keyboard/w.png";
-import keyD from "../../../../../assets/game/keyboard/D.png";
-import keyS from "../../../../../assets/game/keyboard/s.png";
+import keyA from "@/assets/game/keyboard/a.png";
+import keyW from "@/assets/game/keyboard/w.png";
+import keyD from "@/assets/game/keyboard/D.png";
+import keyS from "@/assets/game/keyboard/s.png";
 
 interface ILoading {
   transition: string;
