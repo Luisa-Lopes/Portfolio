@@ -188,4 +188,78 @@ export const EntitiesSize = ({
     height: windowHeight * 0.13,
     label: "platformEng",
   },
+  {
+    size: "small",
+    width: windowWidth * 0.4,
+    height: windowHeight * 0.2,
+    label: "jwt",
+  },
+  {
+    size: "medium",
+    width: windowWidth * 0.5,
+    height: windowHeight * 0.3,
+    label: "jwt",
+  },
+  {
+    size: "large",
+    width: windowWidth * 0.6,
+    height: windowHeight * 0.4,
+    label: "jwt",
+  },
+  {
+    size: "small",
+    width: windowWidth * 0.4,
+    height: windowHeight * 0.3,
+    label: "mvc",
+  },
+  {
+    size: "medium",
+    width: windowWidth * 0.5,
+    height: windowHeight * 0.4,
+    label: "mvc",
+  },
+  {
+    size: "large",
+    width: windowWidth * 0.6,
+    height: windowHeight * 0.5,
+    label: "mvc",
+  },
+  {
+    size: "small",
+    width: windowWidth * 0.3,
+    height: windowHeight * 0.5,
+    label: "placaBack",
+  },
+  {
+    size: "medium",
+    width: windowWidth * 0.35,
+    height: windowHeight * 0.6,
+    label: "placaBack",
+  },
+  {
+    size: "large",
+    width: windowWidth * 0.5,
+    height: windowHeight * 0.65,
+    label: "placaBack",
+  },
+
+  {
+    size: "small",
+    width: windowWidth * 0.3,
+    height: windowHeight * 0.2,
+    label: "api",
+  },
+
+  {
+    size: "medium",
+    width: windowWidth * 0.4,
+    height: windowHeight * 0.3,
+    label: "api",
+  },
+  {
+    size: "large",
+    width: windowWidth * 0.5,
+    height: windowHeight * 0.4,
+    label: "api",
+  },
 ];

@@ -1,13 +1,11 @@
 import blueCloud from "@/assets/game/background/nuvemAzul.png";
 import purpleBlueCloud from "@/assets/game/background/nuvemAzulRoxo.png";
 import darkPurpleCloud from "@/assets/game/background/roxoEscuro.png";
-import server from "@/assets/game/background/servidor.png";
-import mural from "@/assets/game/background/mural3.png";
-import connection from "@/assets/game/background/conexao.png";
-import gear from "@/assets/game/background/engrenagem.png";
 import Component from "../../entities/Component";
-import plataforma1 from "@/assets/game/background/plataforma1.png";
-import plataforma2 from "@/assets/game/background/plataforma2.png";
+import api from "@/assets/game/background/api.png";
+import jwt from "@/assets/game/background/jwt.png";
+import mvc from "@/assets/game/background/mvc.png";
+import placaBack from "@/assets/game/background/placaBack.png";
 
 interface ComponentConfig {
   x: number;
@@ -170,114 +168,62 @@ const BackEndBackground = ({
       zIndex: 0,
       image: darkPurpleCloud,
     },
-
-    ///Servidores
-
     ///Lado esquerdo
 
     {
-      x: windowWidth * 0.15,
-      y: windowHeight * 0.15,
+      x: windowWidth * 0.2,
+      y: windowHeight * 0.3,
       size: "small",
-      label: "server",
+      label: "jwt",
       parallax: 0.4,
       zIndex: 10,
-      image: server,
+      image: jwt,
     },
 
     ///Mural
+
     {
-      x: windowWidth * 0.1,
-      y: windowHeight * 0.6,
+      x: windowWidth * 0.9,
+      y: windowHeight * 0.5,
       size: "small",
-      label: "muralWide",
+      label: "mvc",
       parallax: 0.4,
       zIndex: 10,
-      image: mural,
+      image: mvc,
     },
 
+    //Placa Back
+
     {
-      x: windowWidth * 0.3,
-      y: windowHeight * 0.2,
-      size: "small",
-      label: "muralWide",
+      x: windowWidth * 0.2,
+      y: windowHeight * 0.75,
+      size: "medium",
+      label: "placaBack",
       parallax: 0.4,
       zIndex: 10,
-      image: mural,
+      image: placaBack,
     },
 
-    //
-
-    {
-      x: windowWidth * 0.85,
-      y: windowHeight * 0.1,
-      size: "small",
-      label: "connection",
-      parallax: 0.4,
-      zIndex: 0,
-      image: connection,
-    },
-    {
-      x: windowWidth * 0.2,
-      y: windowHeight * 0.7,
-      size: "small",
-      label: "connection",
-      parallax: 0.4,
-      zIndex: 0,
-      image: connection,
-    },
-
-    //gear
-    {
-      x: windowWidth * 0.85,
-      y: windowHeight * 0.6,
-      size: "small",
-      label: "gear",
-      parallax: 0.4,
-      zIndex: 0,
-      image: gear,
-    },
-
-    //Plataforma1
+    //Api
 
     {
-      x: windowWidth * 0.85,
-      y: windowHeight * 0.4,
+      x: windowWidth * 0.75,
+      y: windowHeight * 0.8,
       size: "small",
-      label: "platBack1",
+      label: "api",
       parallax: 0.4,
-      zIndex: 0,
-      image: plataforma1,
+      zIndex: 10,
+      image: api,
     },
-    {
-      x: windowWidth * 0.2,
-      y: windowHeight * 0.4,
-      size: "small",
-      label: "platBack1",
-      parallax: 0.4,
-      zIndex: 0,
-      image: plataforma1,
-    },
-
-    //Plataforma2
 
     {
       x: windowWidth * 0.8,
-      y: windowHeight * 0.7,
+      y: windowHeight * 0.2,
       size: "small",
-      label: "platBack2",
+      label: "api",
       parallax: 0.4,
-      zIndex: 0,
-      image: plataforma2,
-    },
-    {
-      x: windowWidth * 0.4,
-      y: windowHeight * 0.3,
-      size: "small",
-      label: "platBack2",
-      parallax: 0.4,
-      zIndex: 0,
-      image: plataforma2,
+      zIndex: 10,
+      image: api,
     },
   ];
   return backgroundComponents.reduce(

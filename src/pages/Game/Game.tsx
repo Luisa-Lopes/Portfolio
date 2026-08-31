@@ -41,9 +41,7 @@ interface RenderableEntity {
   [key: string]: unknown;
 }
 
-const gameRenderer = (
-  entities: Record<string, RenderableEntity> | null,
-) => {
+const gameRenderer = (entities: Record<string, RenderableEntity> | null) => {
   if (!entities) return null;
 
   const viewportHeight = (entities.viewport as { height: number }).height;

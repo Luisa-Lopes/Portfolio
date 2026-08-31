@@ -75,8 +75,8 @@ export const createGameRules = ({
       const coin = entity as CoinEntity;
       if (!coin?.body) return;
 
-      if (Matter.Query.collides(player.body, [coin.body]).length > 0) {
-        Matter.World.remove(entities.physics.world, coin.body);
+      if (Matter.Query.collides(player?.body, [coin?.body]).length > 0) {
+        Matter.World.remove(entities.physics.world, coin?.body);
 
         score.score += 10;
         soundManager.play("receivedCoin", 0.2);
@@ -85,18 +85,21 @@ export const createGameRules = ({
     });
 
     const playerHalfWidth =
-      (player.body.bounds.max.x - player.body.bounds.min.x) / 2;
+      (player?.body.bounds.max.x - player?.body.bounds.min.x) / 2;
     const boundedX = Math.max(
       playerHalfWidth,
-      Math.min(viewport.width - playerHalfWidth, player.body.position.x),
+      Math.min(viewport.width - playerHalfWidth, player?.body.position.x),
     );
 
-    if (boundedX !== player.body.position.x) {
+    if (boundedX !== player?.body.position.x) {
       Matter.Body.setPosition(player.body, {
         x: boundedX,
         y: player.body.position.y,
       });
-      Matter.Body.setVelocity(player.body, { x: 0, y: player.body.velocity.y });
+      Matter?.Body.setVelocity(player.body, {
+        x: 0,
+        y: player.body.velocity.y,
+      });
     }
     const touchedFloor =
       Matter.Query.collides(player.body, [floor.body]).length > 0;
