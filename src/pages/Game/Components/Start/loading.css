@@ -1,0 +1,242 @@
+@keyframes key-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.4) rotate(-10deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.08) rotate(4deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes key-press {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  12% {
+    transform: translateY(8px) scale(0.98);
+  }
+
+  25% {
+    transform: translateY(8px) scale(0.98);
+  }
+
+  36% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.key {
+  position: relative;
+  z-index: 1;
+  opacity: 0.9;
+  animation:
+    key-pop 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.15) forwards,
+    key-press 2s ease-in-out infinite;
+}
+
+.key img {
+  display: block;
+  height: auto;
+  filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.18));
+}
+
+.key-a {
+  width: 93px;
+  animation-delay: 0.08s, 0.08s;
+}
+
+.key-w {
+  width: 90px;
+  animation-delay: 0.16s, 0.16s;
+}
+
+.key-s {
+  width: 90px;
+  animation-delay: 0.24s, 0.24s;
+}
+
+.key-d {
+  width: 90px;
+  animation-delay: 0.32s, 0.32s;
+}
+
+@keyframes coin-burst {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.35) rotate(-18deg);
+  }
+
+  55% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.14) rotate(10deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes coin-float {
+  0%,
+  100% {
+    transform: translateY(0) rotateY(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotateY(180deg);
+  }
+}
+
+@keyframes coin-glow {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.4);
+  }
+}
+
+.coin {
+  width: 90px;
+  height: auto;
+  opacity: 0.9;
+  animation:
+    coin-burst 0.8s cubic-bezier(0.18, 0.9, 0.3, 1.2) forwards,
+    coin-float 2s ease-in-out infinite,
+    coin-glow 1.5s ease-in-out infinite;
+}
+
+.coin:nth-child(1) {
+  animation-delay: 0.08s, 0.08s, 0.08s;
+}
+.coin:nth-child(2) {
+  animation-delay: 0.14s, 0.14s, 0.14s;
+}
+.coin:nth-child(3) {
+  animation-delay: 0.2s, 0.2s, 0.2s;
+}
+.coin:nth-child(4) {
+  animation-delay: 0.26s, 0.26s, 0.26s;
+}
+
+.game-start-transition {
+  animation: scene-enter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes scene-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.game-loading {
+  animation: game-screen-reveal 0.9s cubic-bezier(0.18, 0.9, 0.25, 1.1) forwards;
+}
+
+@keyframes game-screen-reveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.98) rotateX(5deg);
+  }
+
+  50% {
+    opacity: 0.75;
+    transform: scale(1.01) rotateX(1deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateX(0deg);
+  }
+}
+
+.game-start-transition.fade-out {
+  animation: game-fade-out 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes game-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.015);
+    filter: blur(2px);
+  }
+}
+
+.game-start-transition.fade-in {
+  animation: game-fade-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes game-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.game-loading h1 {
+  animation: title-bump 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+}
+
+@media (max-width: 500px) {
+  .game-loading h1 {
+    max-width: calc(100% - 2rem);
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  .key-a,
+  .key-w,
+  .key-s,
+  .key-d,
+  .coin {
+    width: 64px;
+  }
+}
+
+@keyframes title-bump {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.06);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

@@ -1,31 +1,16 @@
 import "./App.css";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Experience from "./components/Experience";
-import Home from "./components/Home";
-import Project from "./components/Project";
-import Skills from "./components/Skills";
-import NavBar from "./layouts/navBar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Portfolio from "./pages/Portifolio/Portifolio";
+import Game from "./pages/Game/Game";
 
 function App() {
   return (
-    <div className="site-shell">
-      <NavBar />
-
-      <main>
-        <Home />
-
-        <About />
-
-        <Project />
-
-        <Experience />
-
-        <Skills />
-
-        <Contact />
-      </main>
-    </div>
+    <BrowserRouter basename="/Portfolio">
+      <Routes>
+        <Route path="/" element={<Portfolio />} />
+        <Route path="/game" element={<Game />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
