@@ -4,15 +4,19 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-18px);
+    transform: translateY(-10px);
   }
 }
 
-.cloud {
+.cloud,
+.blueCloud,
+.cloudProject {
   animation: start-float 4s ease-in-out infinite;
 }
 
-.cloud img {
+.cloud img,
+.blueCloud img,
+.cloudProject img {
   display: block;
   width: 220px;
   height: auto;

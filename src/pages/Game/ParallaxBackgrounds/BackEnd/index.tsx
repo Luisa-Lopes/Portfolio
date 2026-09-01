@@ -1,6 +1,4 @@
 import blueCloud from "@/assets/game/background/nuvemAzul.png";
-import purpleBlueCloud from "@/assets/game/background/nuvemAzulRoxo.png";
-import darkPurpleCloud from "@/assets/game/background/roxoEscuro.png";
 import Component from "../../entities/Component";
 import api from "@/assets/game/background/api.png";
 import jwt from "@/assets/game/background/jwt.png";
@@ -49,17 +47,16 @@ const BackEndBackground = ({
       x: windowWidth * 0.2,
       y: windowHeight * 0.75,
       size: "small",
-      label: "cloudBlue",
+      label: "blueCloud",
       parallax: 0.4,
       zIndex: 0,
       image: blueCloud,
     },
-
     {
       x: windowWidth * 0.1,
       y: windowHeight * 0.87,
-      size: "small",
-      label: "cloudBlue",
+      size: "medium",
+      label: "blueCloud",
       parallax: 0.4,
       zIndex: 0,
       image: blueCloud,
@@ -68,8 +65,18 @@ const BackEndBackground = ({
     {
       x: windowWidth * 0.25,
       y: windowHeight * 0.55,
+      size: "large",
+      label: "blueCloud",
+      parallax: 0.4,
+      zIndex: 0,
+      image: blueCloud,
+    },
+
+    {
+      x: windowWidth * 0.1,
+      y: windowHeight * 0.3,
       size: "small",
-      label: "cloudBlue",
+      label: "blueCloud",
       parallax: 0.4,
       zIndex: 0,
       image: blueCloud,
@@ -80,8 +87,8 @@ const BackEndBackground = ({
     {
       x: windowWidth * 0.9,
       y: windowHeight * 0.63,
-      size: "small",
-      label: "cloudBlue",
+      size: "medium",
+      label: "blueCloud",
       parallax: 0.4,
       zIndex: 0,
       image: blueCloud,
@@ -90,8 +97,28 @@ const BackEndBackground = ({
     {
       x: windowWidth * 0.7,
       y: windowHeight * 0.85,
-      size: "small",
-      label: "cloudBlue",
+      size: "medium",
+      label: "blueCloud",
+      parallax: 0.4,
+      zIndex: 0,
+      image: blueCloud,
+    },
+
+    {
+      x: windowWidth * 0.9,
+      y: windowHeight,
+      size: "large",
+      label: "blueCloud",
+      parallax: 0.4,
+      zIndex: 0,
+      image: blueCloud,
+    },
+
+    {
+      x: windowWidth * 0.7,
+      y: windowHeight * 0.9,
+      size: "large",
+      label: "blueCloud",
       parallax: 0.4,
       zIndex: 0,
       image: blueCloud,
@@ -104,11 +131,20 @@ const BackEndBackground = ({
     {
       x: windowWidth * 0.15,
       y: windowHeight * 0.25,
-      size: "small",
-      label: "cloudPurpleBlue",
+      size: "large",
+      label: "blueCloud",
       parallax: 0.4,
       zIndex: 0,
-      image: purpleBlueCloud,
+      image: blueCloud,
+    },
+    {
+      x: windowWidth * 0.3,
+      y: windowHeight * 0.1,
+      size: "large",
+      label: "blueCloud",
+      parallax: 0.4,
+      zIndex: 0,
+      image: blueCloud,
     },
 
     //Lado direito
@@ -116,21 +152,21 @@ const BackEndBackground = ({
     {
       x: windowWidth * 0.7,
       y: windowHeight * 0.5,
-      size: "small",
-      label: "cloudPurpleBlue",
+      size: "medium",
+      label: "blueCloud",
       parallax: 0.4,
       zIndex: 0,
-      image: purpleBlueCloud,
+      image: blueCloud,
     },
 
     {
       x: windowWidth * 0.85,
       y: windowHeight * 0.27,
       size: "small",
-      label: "cloudPurpleBlue",
+      label: "large",
       parallax: 0.4,
       zIndex: 0,
-      image: purpleBlueCloud,
+      image: blueCloud,
     },
 
     // Nuvem Roxa
@@ -140,33 +176,33 @@ const BackEndBackground = ({
     {
       x: windowWidth * 0.15,
       y: windowHeight * 0.05,
-      size: "small",
-      label: "cloudPurple",
+      size: "large",
+      label: "blueCloud",
       parallax: 0.4,
       zIndex: 0,
-      image: darkPurpleCloud,
+      image: blueCloud,
     },
 
     //Lado direito
 
     {
-      x: windowWidth * 0.8,
-      y: windowHeight * 0.13,
+      x: windowWidth * 0.7,
+      y: windowHeight * 0.02,
       size: "small",
-      label: "cloudPurple",
+      label: "medium",
       parallax: 0.4,
       zIndex: 0,
-      image: darkPurpleCloud,
+      image: blueCloud,
     },
 
     {
       x: windowWidth * 0.9,
-      y: windowHeight * 0.1,
+      y: windowHeight * 0.05,
       size: "small",
-      label: "cloudPurple",
+      label: "large",
       parallax: 0.4,
       zIndex: 0,
-      image: darkPurpleCloud,
+      image: blueCloud,
     },
     ///Lado esquerdo
 
