@@ -1,0 +1,20 @@
+@keyframes start-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
+.cloud {
+  animation: start-float 4s ease-in-out infinite;
+}
+
+.cloud img {
+  display: block;
+  width: 220px;
+  height: auto;
+  filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.18));
+}

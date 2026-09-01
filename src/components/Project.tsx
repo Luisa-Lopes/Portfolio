@@ -6,6 +6,14 @@ const prototipoAutoescola = new URL("../assets/prototipo.png", import.meta.url)
 const topologiaRedes = new URL("../assets/topologiaPNet.png", import.meta.url)
   .href;
 
+const gerenciadorProjetos = new URL(
+  "../assets/gerenciadorProjetos.png",
+  import.meta.url,
+).href;
+
+const gerenciadorApi = new URL("../assets/gerenciadorApi.png", import.meta.url)
+  .href;
+
 const bracoDeFerro = new URL("../assets/bracoDeFerro.mp4", import.meta.url)
   .href;
 
@@ -68,27 +76,65 @@ const projects: Project[] = [
       caption: "Protótipo de alta fidelidade",
     },
   },
+
   {
     name: "Gerenciador de Projetos - Projeto Pessoal",
-    area: "Front-End e Back-End",
+
+    area: "Front-End",
+
     description:
-      "Sistema de gerenciamento de projetos desenvolvido com React.js + Vite, .NET e PostgreSQL, permitindo o cadastro, organização e acompanhamento de tarefas em um quadro Kanban.",
+      "Aplicação web para gerenciamento de projetos e tarefas, desenvolvida em React.js, permitindo organizar e acompanhar atividades por meio de um quadro Kanban.",
+
     challenge:
-      "Por ser meu primeiro projeto full-stack com .NET e PostgreSQL, o principal desafio foi compreender a integração entre front-end, API e banco de dados, além de modelar corretamente as entidades e relacionamentos para garantir a consistência das informações.",
+      "O principal desafio foi desenvolver uma interface completa e integrada a uma API REST, organizando o fluxo de autenticação, projetos e tarefas de forma intuitiva e responsiva.",
+
     built:
-      "Desenvolvi uma aplicação full-stack com autenticação, gerenciamento de projetos e tarefas, integração com API REST e persistência de dados em PostgreSQL.",
-    techs: [
-      "React.js",
-      "Vite",
-      "TypeScript",
-      ".NET",
-      "PostgreSQL",
-      "Bootstrap",
-      "Git",
-    ],
+      "Desenvolvi o front-end da aplicação com autenticação, gerenciamento de projetos e tarefas, integração com API REST e interface Kanban para organização das atividades.",
+
+    techs: ["React.js", "Vite", "TypeScript", "Tailwind CSS", "Git"],
+
     demo: "",
+
     github: "https://github.com/Luisa-Lopes/kanban",
+
+    media: {
+      type: "image",
+      src: gerenciadorProjetos,
+      poster: "/assets/gerenciadorProjetos.png",
+      alt: "Gerenciador de Projetos",
+      caption: "Página Inicial",
+    },
   },
+
+  {
+    name: "Gerenciador de Projetos API - Projeto Pessoal",
+
+    area: "Back-End",
+
+    description:
+      "API REST para um sistema de gerenciamento de projetos e tarefas, desenvolvida com .NET e PostgreSQL, responsável pelo processamento e persistência dos dados da aplicação.",
+
+    challenge:
+      "O principal desafio foi desenvolver uma API estruturada e compreender a integração entre .NET e PostgreSQL, incluindo a modelagem das entidades, relacionamentos, autenticação e persistência dos dados.",
+
+    built:
+      "Desenvolvi uma API REST com .NET, implementando autenticação, gerenciamento de projetos e tarefas, modelagem de entidades e persistência de dados em PostgreSQL.",
+
+    techs: [".NET", "C#", "PostgreSQL", "JWT", "Swagger", "Git"],
+
+    demo: "",
+
+    github: "https://github.com/Luisa-Lopes/kanban-api",
+
+    media: {
+      type: "image",
+      src: gerenciadorApi,
+      poster: "/assets/gerenciadorProjetos.png",
+      alt: "Gerenciador de Projetos API",
+      caption: "Swagger",
+    },
+  },
+
   {
     name: "Projetos de Redes",
     area: "Acadêmicos",

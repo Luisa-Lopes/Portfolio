@@ -1,0 +1,203 @@
+.game-over-overlay {
+  position: absolute;
+  z-index: 300;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  overflow: auto;
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 255, 255, 0.2),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(56, 189, 248, 0.38),
+      rgba(29, 78, 216, 0.52) 60%,
+      rgba(49, 46, 129, 0.68)
+    );
+  backdrop-filter: blur(3px);
+}
+
+.game-over-panel {
+  display: grid;
+  justify-items: center;
+  width: min(100%, 31rem);
+  padding: clamp(2rem, 7vw, 3.25rem) clamp(1.25rem, 7vw, 3.5rem) 2.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 1.5rem;
+  background: rgba(15, 23, 42, 0.3);
+  box-shadow:
+    0 26px 60px rgba(15, 23, 42, 0.35),
+    inset 0 1px rgba(255, 255, 255, 0.14);
+  color: #f8fafc;
+  text-align: center;
+  backdrop-filter: blur(14px);
+  animation: game-over-enter 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.game-over-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #bae6fd;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.game-over-eyebrow__line {
+  width: 1.8rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.65;
+}
+
+.game-over-heading h1 {
+  margin: 0.65rem 0 0.5rem;
+  font-family: "Honk", sans-serif;
+  font-size: clamp(2.6rem, 10vw, 4.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  background: linear-gradient(90deg, #ffffff, #c4b5fd 52%, #93c5fd);
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 12px 30px rgba(15, 23, 42, 0.35);
+}
+
+.game-over-heading p {
+  max-width: 20rem;
+  margin: 0;
+  color: rgba(226, 232, 240, 0.9);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.game-over-score {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  margin: 1.75rem 0;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.28);
+}
+
+.game-over-score span,
+.game-over-score small {
+  color: #fcd34d;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.game-over-score strong {
+  margin: 0.15rem 0;
+  color: #fbbf24;
+  font-size: clamp(2.5rem, 10vw, 3.75rem);
+  line-height: 1;
+  text-shadow: 0 5px 18px rgba(245, 158, 11, 0.3);
+}
+
+.game-over-score small {
+  color: rgba(219, 234, 254, 0.8);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+.game-over-actions {
+  display: grid;
+  gap: 0.7rem;
+  width: 100%;
+}
+
+.game-over-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.1rem;
+  border: 0;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.game-over-actions button span {
+  font-size: 1.35rem;
+  line-height: 0;
+}
+
+.game-over-button {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #111827;
+  box-shadow: 0 18px 30px rgba(245, 158, 11, 0.4);
+}
+
+.game-over-menu-button {
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+  background: rgba(15, 23, 42, 0.2);
+  color: #eff6ff;
+}
+
+.game-over-actions button:hover {
+  transform: translateY(-2px);
+}
+
+.game-over-button:hover {
+  box-shadow: 0 20px 36px rgba(245, 158, 11, 0.52);
+}
+
+.game-over-menu-button:hover {
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.game-over-actions button:focus-visible {
+  outline: 3px solid #7dd3fc;
+  outline-offset: 3px;
+}
+
+@keyframes game-over-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-over-panel,
+  .game-over-actions button {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .game-over-overlay {
+    padding: 0.75rem;
+  }
+
+  .game-over-panel {
+    padding-inline: 1rem;
+  }
+}
+
+.game-over-button {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #111827;
+  box-shadow: 0 18px 30px rgba(245, 158, 11, 0.4);
+}
