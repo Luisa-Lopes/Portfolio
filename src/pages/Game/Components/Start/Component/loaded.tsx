@@ -28,9 +28,11 @@ const Loaded = ({ transition }: ILoaded) => {
           </div>
         ))}
       </section>
-      <h1 className="font-honk bg-linear-to-r from-white to-purple-400 bg-clip-text text-2xl text-transparent ">
-        Colete Skills Coins e evolua seu personagem!
-      </h1>
+      <div className="flex p-10">
+        <h1 className="font-honk bg-linear-to-r from-white to-purple-400 bg-clip-text text-center text-2xl text-transparent ">
+          Colete Skills Coins e evolua seu personagem!
+        </h1>
+      </div>
     </section>
   );
 };

@@ -1,6 +1,5 @@
 .showContainer {
   height: 0;
-
   animation: expandirDiv 1s ease-in-out forwards;
   animation-delay: 2s;
 }

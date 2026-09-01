@@ -13,20 +13,33 @@ interface IProjects {
 }
 
 const EndGame = ({ world, windowWidth, windowHeight, offsetY }: IProjects) => {
+  const platformY =
+    (windowHeight < 500 ? windowHeight : windowHeight * 0.7) + offsetY;
+  const platformHeight = 100;
+  const doorHeight = 250;
+
   return {
     door: Door({
       world,
-      position: { x: windowWidth * 0.3, y: windowHeight * 0.5 + offsetY },
-      size: { height: windowHeight * 0.35, width: windowWidth * 0.3 },
+      position: {
+        x: windowWidth * 0.3,
+        y: platformY - platformHeight / 2 - doorHeight / 2 + 20,
+      },
+      size: { height: doorHeight, width: 200 },
       label: "door",
       parallax: 0.4,
+      zIndex: 110,
     }),
     platformEng: Platform({
       world,
-      position: { x: windowWidth / 2, y: windowHeight * 0.7 + offsetY },
-      size: { width: windowWidth * 0.95, height: windowHeight * 0.15 },
+      position: {
+        x: windowWidth / 2,
+        y: platformY,
+      },
+      size: { width: windowWidth * 0.95, height: platformHeight },
       label: "platformEng",
       image: PlatformImage,
+      zIndex: 100,
     }),
     text: Component({
       position: { x: windowWidth * 0.7, y: windowHeight * 0.4 + offsetY },

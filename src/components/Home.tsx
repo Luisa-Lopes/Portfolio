@@ -121,7 +121,7 @@ const Home = ({ show, setShow }: IHome) => {
       <section className="flex w-full flex-col md:flex-row">
         <div className="hero-copy md:w-1/2">
           <div className="flex items-center w-full">
-            <section className="relative flex w-1/2 h-50 ">
+            <section className="relative flex w-1/2 h-50">
               {showCharacterImage && (
                 <div
                   className="absolute"
@@ -141,7 +141,7 @@ const Home = ({ show, setShow }: IHome) => {
               )}
             </section>
 
-            <h1 className="w-1/2">{textoAtual}</h1>
+            <span className="w-1/2 text-6xl">{textoAtual}</span>
           </div>
 
           <p className="eyebrow">

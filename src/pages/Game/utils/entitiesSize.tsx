@@ -33,8 +33,20 @@ export const EntitiesSize = ({
   {
     size: "small",
     width: windowWidth * 0.2,
-    height: windowWidth * 0.09,
-    label: "cloudBlue",
+    height: windowWidth * 0.2,
+    label: "blueCloud",
+  },
+  {
+    size: "medium",
+    width: windowWidth * 0.4,
+    height: windowWidth * 0.4,
+    label: "blueCloud",
+  },
+  {
+    size: "large",
+    width: windowWidth * 0.7,
+    height: windowWidth * 0.7,
+    label: "blueCloud",
   },
   {
     size: "small",

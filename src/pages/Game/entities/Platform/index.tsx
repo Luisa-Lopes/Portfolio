@@ -6,6 +6,7 @@ import defaultPlatform from "@/assets/game/floor.png";
 interface PlatformProps {
   body: Matter.Body;
   image: string;
+  zIndex: number;
 }
 
 interface CreatePlatformProps {
@@ -14,9 +15,10 @@ interface CreatePlatformProps {
   size: { width: number; height: number };
   label: string;
   image?: string;
+  zIndex?: number;
 }
 
-const Platform = ({ body, image }: PlatformProps) => {
+const Platform = ({ body, image, zIndex }: PlatformProps) => {
   const width = body.bounds.max.x - body.bounds.min.x;
   const height = body.bounds.max.y - body.bounds.min.y;
 
@@ -34,7 +36,7 @@ const Platform = ({ body, image }: PlatformProps) => {
         backgroundSize: "100% auto",
         imageRendering: "pixelated",
         overflow: "hidden",
-        zIndex: 100,
+        zIndex,
       }}
     />
   );
@@ -46,6 +48,7 @@ export default ({
   size,
   label,
   image = defaultPlatform,
+  zIndex = 100,
 }: CreatePlatformProps) => {
   const body = Matter.Bodies.rectangle(
     position.x,
@@ -60,6 +63,6 @@ export default ({
     body,
     position,
     image,
-    renderer: <Platform body={body} image={image} />,
+    renderer: <Platform body={body} image={image} zIndex={zIndex} />,
   };
 };
