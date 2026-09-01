@@ -20,7 +20,7 @@ const Entities = ({ viewport }: IEntities) => {
   const engine = Matter.Engine.create({ enableSleeping: false });
   const world = engine.world;
 
-  engine.gravity.y = 0.45;
+  engine.gravity.y = 0.5;
 
   return {
     physics: { engine, world },

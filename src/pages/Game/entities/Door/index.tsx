@@ -4,6 +4,7 @@ import "./style.css";
 
 interface DoorProps {
   body: Matter.Body;
+  zIndex: number;
 }
 
 interface CreateDoorProps {
@@ -12,9 +13,10 @@ interface CreateDoorProps {
   size: { width: number; height: number };
   label: string;
   parallax: number;
+  zIndex?: number;
 }
 
-const Door = ({ body }: DoorProps) => {
+const Door = ({ body, zIndex }: DoorProps) => {
   const width = body.bounds.max.x - body.bounds.min.x;
   const height = body.bounds.max.y - body.bounds.min.y;
 
@@ -26,6 +28,7 @@ const Door = ({ body }: DoorProps) => {
         top: body.position.y - height / 2,
         width,
         height,
+        zIndex,
       }}
     >
       <div className="relative w-full h-full">
@@ -34,7 +37,7 @@ const Door = ({ body }: DoorProps) => {
             position: "absolute",
             display: "flex",
             backgroundImage: `url(${DoorImage})`,
-            backgroundPosition: "center 64%",
+            backgroundPosition: "center 50%",
             backgroundRepeat: "no-repeat",
             backgroundSize: "100% auto",
             imageRendering: "pixelated",
@@ -60,6 +63,7 @@ export default ({
   size,
   label,
   parallax,
+  zIndex = 110,
 }: CreateDoorProps) => {
   const body = Matter.Bodies.rectangle(
     position.x,
@@ -73,6 +77,6 @@ export default ({
   return {
     body,
     parallax,
-    renderer: <Door body={body} />,
+    renderer: <Door body={body} zIndex={zIndex} />,
   };
 };

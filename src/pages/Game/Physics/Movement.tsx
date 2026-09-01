@@ -28,9 +28,9 @@ export const createMovement = (keyboard: KeyboardState) => {
 
   return (entities: Entities, { time }: SystemArgs) => {
     const player = entities.player;
-    const speed = 1.5;
+    const speed = 1.6;
     const jumpVelocity = -11;
-    const movementSmoothing = 0.2;
+    const movementSmoothing = 0.5;
     const platforms = Object.entries(entities)
       .filter(([key]) => key.startsWith("platform"))
       .map(([, entity]) => (entity as { body: Matter.Body }).body);
