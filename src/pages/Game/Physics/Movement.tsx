@@ -1,6 +1,5 @@
 import Matter from "matter-js";
 import type { PlayerProps } from "../entities/Player";
-import { soundManager } from "../audio/SoundManager";
 
 interface PhysicsProps {
   engine: Matter.Engine;
@@ -135,11 +134,6 @@ export const createMovement = (keyboard: KeyboardState) => {
 
     const isWalking = isOnPlatform && Math.abs(horizontalVelocity) > 0.2;
     walkSoundElapsed = isWalking ? walkSoundElapsed + time.delta : 0;
-
-    if (isWalking && walkSoundElapsed >= 350) {
-      soundManager.play("walking", 0.12);
-      walkSoundElapsed = 0;
-    }
 
     platforms.forEach((platform) => {
       // Mantém a plataforma atravessável somente durante a subida. Usar o

@@ -41,7 +41,7 @@ const Start = ({ clouds, transition, loadInformation }: IStart) => {
       <div className="flex flex-col lg:flex-row z-30 gap-3">
         <div className="flex flex-col z-50 gap-3 ">
           <h1 className="font-honk bg-linear-to-r from-black to-purple-500 bg-clip-text text-5xl font-extrabold text-transparent p-0 m-0  z-50">
-            Portifólio Game
+            Portfólio Game
           </h1>
           <div className="typing-line game-copy__typing">
             {textoAtual}
