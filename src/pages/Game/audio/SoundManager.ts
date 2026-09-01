@@ -3,7 +3,6 @@ import portalOpen from "@/assets/game/sounds/portalOpen.mp3";
 import receivedCoin from "@/assets/game/sounds/coinReceived.mp3";
 
 const sounds = {
-  //walking,
   portalOpen,
   receivedCoin,
 };
