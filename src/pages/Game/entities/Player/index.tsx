@@ -2,7 +2,7 @@
 
 import Matter from "matter-js";
 import walking from "../../../../assets/game/player/WalkRight.png";
-import jumping from "../../../../assets/game/player/jumpRight.png";
+import jumping from "../../../../assets/game/player/jump.png";
 import { useMemo } from "react";
 
 export interface PlayerProps {
@@ -28,7 +28,7 @@ interface CreatePlayerProps {
   frame: number;
 }
 
-const DISPLAY_WIDTH = 60;
+const DISPLAY_WIDTH = 59;
 const DISPLAY_HEIGHT = 82;
 
 const Player = ({ body, state, direction, frame }: PlayerProps) => {
@@ -55,9 +55,9 @@ const Player = ({ body, state, direction, frame }: PlayerProps) => {
       return {
         src: jumping,
         columns: 4,
-        rows: 1,
-        frames: 4,
-        scale: 1.2,
+        rows: 2,
+        frames: 8,
+        scale: 1,
       } as const;
     }
   }, [direction, state]);
@@ -98,7 +98,6 @@ const Player = ({ body, state, direction, frame }: PlayerProps) => {
 
 export default ({
   world,
-
   position,
   size,
   state,

@@ -30,7 +30,7 @@ const Entities = ({ viewport }: IEntities) => {
       color: "",
       position: { x: windowWidth * 0.25, y: windowHeight - 150 },
       size: { height: 62, width: 44 },
-      state: "idle",
+      state: "jumping",
       direction: "left",
       frame: 0,
     }),
