@@ -17,8 +17,6 @@ export const loadAssets = async (
   onProgress?: (progress: number) => void,
   onFinish?: () => void,
 ) => {
-  const startTime = Date.now();
-
   let loaded = 0;
 
   await Promise.all(
@@ -32,17 +30,6 @@ export const loadAssets = async (
       onProgress?.(progress);
     }),
   );
-
-  const elapsedTime = Date.now() - startTime;
-  const minimumTime = 10000;
-
-  if (elapsedTime < minimumTime) {
-    await new Promise<void>((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, minimumTime - elapsedTime);
-    });
-  }
 
   onFinish?.();
 };

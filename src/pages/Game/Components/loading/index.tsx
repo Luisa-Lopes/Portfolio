@@ -15,25 +15,29 @@ const clouds = [
 ];
 
 interface ILoadingGame {
-  progress: number;
   assetsLoaded: boolean;
+  onComplete: () => void;
 }
-const LoadingGame = ({ progress, assetsLoaded }: ILoadingGame) => {
+const LoadingGame = ({ assetsLoaded, onComplete }: ILoadingGame) => {
   const [transition, setTransition] = useState("fade-in");
   const [pageState, setPageState] = useState("loading");
 
   useEffect(() => {
-    if (progress >= 60) {
-      setTransition("fade-out");
-      setTimeout(() => {
-        setTransition("fade-in");
-        setPageState("loaded");
-      }, 1000);
-    }
-    if (assetsLoaded) {
-      setTransition("fade-out");
-    }
-  }, [progress]);
+    const timer = window.setTimeout(() => {
+      setTransition("fade-in");
+      setPageState("loaded");
+    }, 5000);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (pageState !== "loaded" || !assetsLoaded) return;
+
+    const timer = window.setTimeout(onComplete, 5000);
+
+    return () => window.clearTimeout(timer);
+  }, [assetsLoaded, onComplete, pageState]);
 
   if (pageState === "loading") {
     return <Loading transition={transition} clouds={clouds} />;

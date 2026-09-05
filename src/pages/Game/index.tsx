@@ -215,11 +215,12 @@ const Game = () => {
 
     try {
       await loadAssets(assetsList, setProgress, () => setAssetsLoaded(true));
-      setGameState("playing");
     } catch (error) {
       console.error("Erro ao carregar assets:", error);
     }
   };
+
+  const finishLoading = () => setGameState("playing");
 
   const restartGame = () => {
     setGameState("playing");
@@ -237,7 +238,9 @@ const Game = () => {
   if (gameState === "start") return <Start onClickStart={handleStartGame} />;
 
   if (gameState === "loading")
-    return <LoadingGame progress={progress} assetsLoaded={assetsLoaded} />;
+    return (
+      <LoadingGame assetsLoaded={assetsLoaded} onComplete={finishLoading} />
+    );
 
   return (
     <section
