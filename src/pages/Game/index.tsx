@@ -14,11 +14,14 @@ import Entities from "./entities";
 import { createMovement } from "./Physics/Movement";
 import { createGameRules } from "./Physics/gameRules";
 import { useKeyboard } from "./hooks/useKeyboard";
-import "./Game.css";
-import MainStart from "./Components/Start";
+import "./style.css";
 import GameOver from "./Components/GameOver";
 import Pause from "./Components/Pause";
 import { soundManager } from "./audio/SoundManager";
+import { loadAssets } from "./utils/loadAssets";
+import { assetsList } from "./utils/assetsList";
+import LoadingGame from "./Components/loading";
+import Start from "./Components/Start";
 
 export const getViewport = () => ({
   width: Math.min(window.innerWidth, 800),
@@ -117,10 +120,13 @@ const Game = () => {
   const [viewport, setViewport] = useState(getViewport);
 
   const [gameState, setGameState] = useState<
-    "start" | "playing" | "pause" | "gameOver" | "transition"
+    "start" | "loading" | "playing" | "pause" | "gameOver" | "transition"
   >("start");
   const [round, setRound] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
+  const [progress, setProgress] = useState(0);
+  const [assetsLoaded, setAssetsLoaded] = useState(false);
+
   const navigate = useNavigate();
 
   const gameEngineRef = useRef<GameEngine | null>(null);
@@ -202,8 +208,17 @@ const Game = () => {
     return () => window.clearTimeout(timer);
   }, [gameState, navigate]);
 
-  const handleStartGame = () => {
-    setGameState("playing");
+  const handleStartGame = async () => {
+    setGameState("loading");
+    setProgress(0);
+    setAssetsLoaded(false);
+
+    try {
+      await loadAssets(assetsList, setProgress, () => setAssetsLoaded(true));
+      setGameState("playing");
+    } catch (error) {
+      console.error("Erro ao carregar assets:", error);
+    }
   };
 
   const restartGame = () => {
@@ -219,8 +234,10 @@ const Game = () => {
     setGameState("pause");
   };
 
-  if (gameState === "start")
-    return <MainStart onClickStart={handleStartGame} />;
+  if (gameState === "start") return <Start onClickStart={handleStartGame} />;
+
+  if (gameState === "loading")
+    return <LoadingGame progress={progress} assetsLoaded={assetsLoaded} />;
 
   return (
     <section
