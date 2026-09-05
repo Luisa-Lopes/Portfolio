@@ -124,7 +124,6 @@ const Game = () => {
   >("start");
   const [round, setRound] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  const [progress, setProgress] = useState(0);
   const [assetsLoaded, setAssetsLoaded] = useState(false);
 
   const navigate = useNavigate();
@@ -210,11 +209,10 @@ const Game = () => {
 
   const handleStartGame = async () => {
     setGameState("loading");
-    setProgress(0);
     setAssetsLoaded(false);
 
     try {
-      await loadAssets(assetsList, setProgress, () => setAssetsLoaded(true));
+      await loadAssets(assetsList, undefined, () => setAssetsLoaded(true));
     } catch (error) {
       console.error("Erro ao carregar assets:", error);
     }
